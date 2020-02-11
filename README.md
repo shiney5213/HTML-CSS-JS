@@ -6,9 +6,9 @@
 > [BAEKJOON ONLINE JUDGE](https://www.acmicpc.net/)
 
 ## 1. HTML, CSS study
-- [HTML_BASIC](): ui, li, div, 
-- [HTML_STRUCTURE](): header, section, nav, botton 
-- [HTML_CSS](): id, class 
+- [HTML_BASIC](): ui, li, div 개념 익히기
+- [HTML_STRUCTURE](): header, section, nav, botton 개념 익히기
+- [HTML_CSS](): id, class 개념 익히기
 <table>
     <tr>
     <td><img src="images/1.1_HTML_BASIC.png" alt="1.1_HTML_BASIC" width='200' height = '150' /></td>
