@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Happy Birthday</title>
+{% load static %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+
+
+
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 10px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  
+}
+
+/* Container for flexboxes */
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: #ccc;
+  padding: 20px;
+}
+
+div {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: #ccc;
+  padding: 20px;
+}
+
+#result {background: white;
+  padding: 20px;
+  text-align: center;
+  font-size: large; 
+  font-family : 'Nanum Gothic'
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+table {
+  align-items: center;
+}
+</style>
+</head>
+
+
+<body>
+<header>
+  {% load static %}
+  <img src="{% static 'birthday-2496221_1920.png' %}"  width =20% >
+</header>
+
+<section>
+  <nav>
+    
+        <h3>생일 축하 메시지를 입력하세요</h3>
+        이름<br>
+        <input type="text" name = 'name' id = name value = '소영'><br>
+        메시지<br>
+        <textarea rows='5' cols=30 name = 'msg' id = msg value='사랑해' ></textarea><br>
+        생일<br>
+        <input type="text" name = 'year' id = year value = 1985>년
+        <input type="text" name = 'month', id = month value= 08>월
+        <input type="text" name = 'day' id = day value = 12>일
+        보내는 사람<br>
+        <input type="text" name = 'send' id = send value = '엄마'>
+
+        <!-- <input type="submit" value = 'OK' id = btn> -->
+        <button id = 'btn'>OK</button>
+        <script>
+
+
+          $("#btn").click(function() {
+                send = $('#send').val();
+                name = $('#name').val();
+                msg = $('#msg').val();
+                year = $('#year').val();
+                month = $('#month').val();
+                day = $('#day').val();
+        
+                alert('잠깐만요!' );
+            
+                
+                var param = {send: send, msg: msg, name : name, year: year, month: month, day: day};
+                $.get('/birthday/output', param, function(data){
+                    $('#result').html(data)
+        
+                });
+            });
+        </script>
+  </nav>
+  
+  <article>
+    <table>
+      <tr>
+        <td ><img src="{% static 'balloon-1674880_640.png' %}" width = 200 ></td>
+        <td ><img src="{% static 'happy-birthday-875122_1920.jpg' %}" width = 200 ></td>    
+        <td ><img src="{% static 'valentines-day-2053370_640.jpg' %}"  width = 200  ></td>       
+              
+      </tr>
+      <tr>
+        <td ><img src="{% static 'pattern-4008915_640.png' %}" width = 200 ></td>
+        <td ><img src="{% static 'birthday-cake-1674879_1280.png' %}" width = 200 ></td>    
+        <td ><img src="{% static 'digital-background-4799592_640.jpg' %}"  width = 200  ></td>       
+        
+      </tr>
+    </table>
+
+
+  </article>
+  <div>
+    <div id='result'>
+      result
+    </div>
+   <img src="{% static 'holidays-1313784_640.jpg' %}"  width =100% >
+  </div>
+  
+</section>
+
+<footer>
+  <p>♡ HAPPY BIRTHDAY TO YOU♡</p>
+</footer>
+
+</body>
+</html>
