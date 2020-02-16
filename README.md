@@ -42,7 +42,7 @@
 - [input.html](https://github.com/shiney5213/HTML-CSS-study/blob/master/Django/mysite/TEMPLATES/birthday/input.html) : 127.0.0.1:8000/birthday/input 에서 왼쪽에 값 입력하면 오른쪽 화면에 메시지 출력
 <table width = 600>
     <tr>
-    <td><img src="images/3.1_Django1.png"  width='400' height = '200' /></td>
-    <td><img src="images/3.1_Django2.png"  width='400' height = '200'/></td>
+    <td><img src="images/3.1_Django1.png"  width='300' height = '200' /></td>
+    <td><img src="images/3.1_Django2.png"  width='300' height = '200'/></td>
     </tr>
 </table>
