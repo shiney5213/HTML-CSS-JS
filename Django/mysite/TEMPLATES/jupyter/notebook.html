@@ -1,0 +1,172 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+<title>Happy Birthday</title>
+{% load static %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+<style>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800');
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main_continaer{width: 100%;
+                height: 100%;}
+
+
+header {width:100%;
+    height:130px;
+  background-color:white;
+  padding: 1px;
+  float: left;
+  text-align: left;
+  display: inline;
+  font-size: 30px;
+}
+header .logo{display: inline-block;
+    vertical-align: top;
+    width: 3px;
+    height: 30px;
+    background-color:white;
+    position: absolute;
+    left: 10px;
+}
+header .jupyter {
+    display: inline-block;
+    vertical-align: center;
+    width: 100px;
+    height: 50px;
+    /* font-size: 35px; */
+    position: absolute;
+    left: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+header >.title {
+    display: inline-block;
+    vertical-align: center;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    position: absolute;
+    left: 170px;
+}
+header >.autosaved {
+    display: inline-block;
+    vertical-align: center;
+    width: 300px;
+    height: 50px;
+    font-size: 10px;
+    position: absolute;
+    left: 450px;
+}
+nav {background-color:whitesmoke;
+        border: 1px solid rgb(167, 164, 164);
+        position: absolute;
+        top: 50px;
+        height: 30;
+        width: 99% ;
+        vertical-align: center;
+
+    }
+  nav ul li { display:inline; 
+            font:bold 10px Dotum rgb(122, 122, 122); 
+            padding:0 20px;
+            vertical-align: center;
+ }
+
+div #note {width : 100%;
+height: 90%;
+position: absolute;
+top:100px;
+
+}
+
+div .center-box{width:96%;
+                height:1000px;
+                background-color:white;
+                display: inline;
+                }
+
+textarea  {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+button {font-size: 20px;}
+
+div #result {font-size: 20px; }
+
+
+</style>
+</head>
+
+
+<body>
+    <div class = 'main_container'>
+<header>
+    <div class = logo><img src="{% static 'logo.png' %}" width = 30px ></div>
+    <div class = jupyter>Jupyter </div>
+    <div class = title>Django for Jupyter Notebook</div>
+    <div class = autosaved>(autosaved)</div>
+    
+</header>
+<nav>
+    <ul>
+        <li> File </li>
+        <li> Edit </li>
+        <li> View </li>
+        <li> Cell </li>
+        <li> kernel </li>
+        <li> Help </li>
+
+    </ul>
+</nav>
+
+
+<div id = note>
+    
+        <button id = 'btnAdd' >add</button>
+        <div id = 'cells'>
+            <div id = 'cell'>
+                <textarea name="code" id="code" cols="70" rows="5"></textarea>
+                <button id = 'btnRun'>OK</button>
+            <div id = 'result'>result</div>
+            </div>
+        </div>
+
+</div>
+   
+
+<script>
+    $('#btnRun').click(function(){
+        var param = {code: $('#code').val()};
+        $.get('/jupyter/output', param, function(data){
+            $('#result').html(data)
+        });
+    });
+
+    $('#btnAdd').click(function(){
+        $('#cells').append($('#cell').clone())
+
+    });
+
+
+</script>
+
+
+</div>
+</body>
+</html>
