@@ -2,10 +2,8 @@
 
 ---
 
-> Algorithm study in Baekjun site
-> [BAEKJOON ONLINE JUDGE](https://www.acmicpc.net/)
 
-## 1. HTML, CSS 
+##  HTML, CSS 
 - [HTML_BASIC](https://github.com/shiney5213/HTML-CSS-study/blob/master/HTML%2CCSS/1.1_HTML_basic.html) : ui, li, div 개념 익히기
 - [HTML_STRUCTURE](https://github.com/shiney5213/HTML-CSS-study/blob/master/HTML%2CCSS/1.2_HTML_structure.html) : header, section, nav, botton 개념 익히기
 - [HTML_CSS](https://github.com/shiney5213/HTML-CSS-study/blob/master/HTML%2CCSS/1.3. CSS_id%2C class.html)): id, class 개념 익히기
@@ -46,3 +44,16 @@
     <td><img src="images/3.1_Django2.png"  width='300' height = '200'/></td>
     </tr>
 </table>
+
+#### 2. Jupyter notebook
+
+   - [view.py](https://github.com/shiney5213/HTML-CSS-study/blob/master/Django/mysite/jupyter/views.py): input함수에서 파이썬 코드를 입력하면 output 함수에서 code를 실행한 결과를 출력
+
+   - [nootebook.html] (https://github.com/shiney5213/HTML-CSS-study/blob/master/Django/mysite/TEMPLATES/jupyter/notebook.html):  jupyter notebook의 코드 입력, 실행, 셀 추가 기능 구현
+
+   - <table width = 600>
+         <tr>
+         <td><img src="images/3.2_jupyter1.png"  width='300' height = '200' /></td>
+         <td><img src="images/3.2_jupyter2.png"  width='300' height = '200'/></td>
+         </tr>
+     </table>
