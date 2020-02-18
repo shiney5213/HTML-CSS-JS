@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import sys
 from io import StringIO
+from jupyter.models import User
 
 # Create your views here.
 
@@ -30,3 +31,6 @@ def output(request):
     return HttpResponse(contents)
 
 
+def listuser(request):
+    data = User.objects.all()
+    return render(request, 'jupyter/database.html', {'data': data})
