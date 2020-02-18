@@ -5,5 +5,6 @@ urlpatterns = [
     path('', views.index),
     path('input', views.input),
     path('output', views.output),
+    path('listuser', views.listuser),
 
 ]
