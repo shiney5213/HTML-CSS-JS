@@ -1,0 +1,29 @@
+{% extends 'memo/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<style>
+div {float : left;}
+</style>
+<body>
+
+    
+{% block content %}
+
+<a href="{% url 'Memo' category  0 'add' %"}>add</a>
+
+{ % for  d in data %}
+
+<a href="{% url 'Memo' category d.pk 'detail' %}">{{d.title}}</a>
+<br>
+
+{% end for  %}
+
+{% endblock %}    
+
+
+
+</body>
+</html>

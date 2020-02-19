@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<style>
+div {float : left;}
+</style>
+<body>
+
+<h1>게시판 만들기</h1>
+<h2>사용자: {{username}}</h2>
+
+
+<div>
+    <div id = first>
+        <td><a href="/memo/data/0/list">자료실</a></td>
+    </div>
+
+    <div id = second>
+        <td><a href="/memo/common/0/list">일반 게시판</a></td>
+    </div>
+    
+    <div id = third>
+        <td><a href="/memo/ect/0/list">기타</a></td>
+    </div>
+
+
+</div>
+    
+{% block content %}
+{% endblock %}    
+
+
+<div id = footer>
+    copy right...by shiney
+</div>
+</body>
+</html>
