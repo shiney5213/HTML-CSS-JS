@@ -6,5 +6,5 @@ from django.shortcuts import redirect
 urlpatterns = [
     path('<category>/<int:pk>/<mode>', views.MemoView.as_view(), name = 'Memo'),
     path('', lambda request: redirect('memo', 'common', 0, 'list')),
-
+    path('', views.index)
 ]
