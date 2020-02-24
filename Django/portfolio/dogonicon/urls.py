@@ -18,8 +18,9 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.home, name = 'home'),
-    path('dogonicon/', include('dogonicon.urls')),
+    # path('', views.index),
+    path('', views.UploadView.as_view(), name = 'UPLOAD'),
+
+
 
 ]
