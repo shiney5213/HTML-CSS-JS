@@ -78,7 +78,7 @@ document.querySelector('body').style.color = 'black';
 
 ## 2. 조건문, 반복문
 
-- 조건에 따라 , 반복해서 어떤 기능을 실행하고 싶으 ㄹ때
+- 조건에 따라 , 반복해서 어떤 기능을 실행하고 싶을 때
 
 ---
 
