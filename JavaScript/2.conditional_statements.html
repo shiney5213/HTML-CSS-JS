@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = 'utf-8'>
+	<title>JavaScript</title>
+</head>
+<body>
+	<h1>Conditional statements</h1>
+	<h2>Program</h2>
+	<script>
+		document.write('1<br>');
+		document.write('2<br>');
+		document.write('3<br>');
+		document.write('4<br>');
+	</script>	
+	<h2>IF-true</h2>
+	<script>
+		document.write('1<br>');
+		if(true){
+			document.write('2<br>');
+		}else{
+			document.write('3<br>');
+		}
+		document.write('4<br>');
+	</script>	
+	<h2>IF-False</h2>
+	<script>
+		document.write('1<br>');
+		if(false){
+			document.write('2<br>');
+		}else{
+			document.write('3<br>');
+		}
+		document.write('4<br>');
+	</script>	
+	<H2>toggle button</H2>
+	<input id = 'night_day' type="button" value = 'day' onclick="
+		if (document.querySelector('#night_day').value =='night'){
+		document.querySelector('body').style.backgroundColor= 'white';
+		document.querySelector('body').style.color = 'black';
+		document.querySelector('#night_day').value = 'day';
+		}else{
+		document.querySelector('body').style.backgroundColor= 'black';
+		document.querySelector('body').style.color = 'white';
+		document.querySelector('#night_day').value = 'night';
+	}">
+	<H2>Refectoring button</H2>
+	<input  type="button" value = 'day' onclick="
+		var target = document.querySelector('body');
+		if (this.value =='night'){
+			target.style.backgroundColor= 'white';
+			target.style.color = 'black';
+			this.value = 'day';
+		}else{
+			target.style.backgroundColor= 'black';
+			target.style.color = 'white';
+			this.value = 'night';
+		}
+	">
+
+</body>
+
+</html>
