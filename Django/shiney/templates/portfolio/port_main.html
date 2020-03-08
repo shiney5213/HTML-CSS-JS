@@ -1,0 +1,87 @@
+{% extends 'portfolio/base.html' %}
+<!-- https://kutar37.tistory.com/entry/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C%EC%87%BC-%EA%B5%AC%ED%98%84-cssjavascriptjquery -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Portfolio</title>
+  <link rel = "stylesheet" type ="text/css" href="port_main.css">
+  {% load static %}
+
+</head>
+
+<body>
+
+{% block content %}
+
+<h1> SHINEY's Portfolio</h1>
+<div class="slideshow-container">
+
+	<div class="mySlides fade">
+	  <div class="numbertext">1 / 3</div>
+	  <img src="../../static/portfolio/adorable-1850276_1920.jpg" style="width:50%">
+	  <div class="text">Caption Text</div>
+	</div>
+	
+	<div class="mySlides fade">
+	  <div class="numbertext">2 / 3</div>
+	  <img src="../../static/portfolio/adorable-3344414_1920.jpg" style="width:50%">
+	  <div class="text">Caption Two</div>
+	</div>
+	
+	<div class="mySlides fade">
+	  <div class="numbertext">3 / 3</div>
+	  <img src="../../static/portfolio/friends-3042751_1920.jpg" style="width:50%">
+	  <div class="text">Caption Three</div>
+	</div>
+	
+	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+	<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	
+</div>
+	<br>
+
+<div style="text-align:center">
+	<span class="dot" onclick="currentSlide(1)"></span> 
+	<span class="dot" onclick="currentSlide(2)"></span> 
+	<span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+<script>
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+
+</script>
+
+{% endblock %}
+
+
+</body>
+</html>
