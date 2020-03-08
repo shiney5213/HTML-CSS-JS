@@ -1,15 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE >
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width">
 
 <title>http://www.blueb.co.kr</title>
-<link rel="stylesheet" type="text/css" href="home-styleSheet.css" />
-
-<script type="text/javascript" src="home_js.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="home-styleSheet.css" /> -->
+<!-- <script type="text/javascript" src="home_js.js"></script> -->
 {% load static %}
+<style >
+
+.wrapper1 {overflow: hidden;
+}
+.wrapper2 {overflow: hidden;
+}
+.wrapper > a {float: left;
+margin : 0;
+} 
+
+
+}
+</style>
+
 </head>
 <body>
-	<a href="portfolio/"><img src = '../static/home/ring-binders-aligned-2654130_640.jpg' width = 50%> </a>
+	<div class = 'wrapper1'>
+		<a href="portfolio/"><img src = '../static/home/1.aboutus.jpg'  > </a>
+		<a href="portfolio/"><img src = '../static/home/2.portfolio.jpg' > </a>
+	<div class = 'wrapper2'>
+
+		<a href="portfolio/"><img src = '../static/home/3.works.jpg'  > </a>
+		<a href="portfolio/"><img src = '../static/home/4.github.jpg' > </a>
+	</div>
 </body>
 </html>
