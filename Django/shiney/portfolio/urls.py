@@ -18,6 +18,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    # path('', views.index),
-    path('', views.UploadView.as_view(), name = 'UPLOAD'),
+    #  path('', views.index),
+	path('', views.portfolioView.as_view(), name = 'portfolioMain'),
+    # path('', views.UploadView.as_view(), name = 'UPLOAD'),
 ]
