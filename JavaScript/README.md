@@ -7,7 +7,7 @@
 
 ---
 
-## 1. BASIC
+## 1. [BASIC](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/1.basic.html)
 
 #### 1.1 event
 
@@ -72,16 +72,160 @@ document.querySelector('body').style.color = 'black';
 
 - JavaScript: 프로그래밍 언어, 사용자와 상호작용하기 위해 고안된 언어. 시간의 순서에 따라 웹브라우저의 여러 기능들이 실행되어야 함.
 
+  - 조건문, 반복문: 조건에 따라 , 반복해서 어떤 기능을 실행하고 싶을 때
   
-
-### ---
-
-## 2. 조건문, 반복문
-
-- 조건에 따라 , 반복해서 어떤 기능을 실행하고 싶을 때
+  - 함수: 순서의 배치가 복잡해짐에 따라 잘 정리정돈할 수 있음.
 
 ---
 
-## 3. 함수
+## 2.[ 조건문(Conditianal Statements)](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/2.conditional_statements.html)
 
-- 순서의 배치가 복잡해짐에 따라 잘 정리정돈할 수 있음.
+#### 2.1. 형식
+
+  ```
+  document.write('1<br>');
+  if(true){
+    document.write('2<br>');
+  }else{
+    document.write('3<br>');
+  }
+  document.write('4<br>');
+  ```
+#### 2.2. 조건문 활용
+
+```
+<H2>toggle button</H2>
+<input id = 'night_day' type="button" value = 'day' onclick="
+  if (document.querySelector('#night_day').value =='night'){
+    document.querySelector('body').style.backgroundColor= 'white';
+    document.querySelector('body').style.color = 'black';
+    document.querySelector('#night_day').value = 'day';
+  }else{
+    document.querySelector('body').style.backgroundColor= 'black';
+    document.querySelector('body').style.color = 'white';
+    document.querySelector('#night_day').value = 'night';
+  }
+">
+```
+<table>
+    <tr>
+    <td><img src="images\2.if_1.png" width = 200px /></td>
+    <td><img src ="images\2.if_2.png" width = 200px /></td>
+    </td>
+</table>
+
+## 3. Refactoring
+- 코드의 기능은 그대로 두고, 코드를 효율적으로 만들어서 개선하는 것
+	- 가독성을 놓이고, 유지보수 편리하도록, 중복 코드 없애기 등 
+#### 3.1 버튼이 여러개 있다면
+- onclick 안에 있는 태크가 자지 자신을 가리키고 있을 때 this 사용
+- document.querySelector('#night_day')-> this로 교체
+```
+<H2>Refectoring button</H2>
+<input  type="button" value = 'day' onclick="
+  if (this.value =='night'){
+    document.querySelector('body').style.backgroundColor= 'white';
+    document.querySelector('body').style.color = 'black';
+    this.value = 'day';
+  }else{
+    document.querySelector('body').style.backgroundColor= 'black';
+    document.querySelector('body').style.color = 'white';
+    this.value = 'night';
+  }
+">
+```
+#### 3.2 중복을 최대한 없애기
+- 변수 사용하기
+```
+<input  type="button" value = 'day' onclick="
+    var target = document.querySelector('body');
+    if (this.value =='night'){
+        target.style.backgroundColor= 'white';
+    	target.style.color = 'black';
+    	this.value = 'day';
+    }else{
+    	target.style.backgroundColor= 'black';
+    	target.style.color = 'white';
+    	this.value = 'night';
+    }
+">
+```
+
+
+
+## 4. 반복
+
+#### 4.1.[배열](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.array.html)
+
+- 배열(array): 연관된 데이터를 정리정돈하여 담기 위한 수납상자
+
+```
+<h1>Array</h1>
+<h2>Syntax</h2>
+<script>
+  var coworkers=['one', 'two', 'three'];  # 생성
+  document.write(coworkers[0]);            # get
+  document.write(coworkers[1]);
+  document.write(coworkers[2]);
+  coworkers.push('four')                 # add
+  document.write(coworkers.length);      # length
+</script>
+```
+
+#### 4.2. [반복문](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.loop.html)
+
+- 프로그램의 흐름을 제어
+
+```
+var i = 0;
+while(i < 3){
+  document.write('<li>2</li> ')
+  document.write('<li>3</li> ')
+  i += 1;
+}
+```
+
+
+
+
+
+
+
+
+
+```
+var links = document.querySelectorAll('a');
+var i = 0;
+while(i<links.length){
+  links[i].sthle.color = 'pow'
+
+}
+```
+
+
+
+#### 4.2. 반복문
+
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+## 5. 함수
+
+- 
+
+
+
+## 6. 객체
