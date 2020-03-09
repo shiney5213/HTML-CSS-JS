@@ -185,6 +185,25 @@ while(i < 3){
 }
 ```
 
+#### 4.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.loop%2Carray.html)
+- 배열: 순서대로 연관된 데이터를 정리정돈
+- 반복문: 배열에 있는 데이터를 하나씩 꺼내어 자동화된 처리를 할 수 있음.
+```
+<h2>Number Array</h2>
+<script>
+    var number=['One','Two', 'Three', 'Four', 'Five', 'Six'];
+</script>
+<ul>
+    <script>
+    var i = 0;
+    while(i<number.length){
+        document.write('<li><a href = "http://a.com/'+number[i]+'">'+number[i]+'</a></li>');
+        i =i +1;
+    }
+    </script>
+</ul>
+```
+
 
 
 
