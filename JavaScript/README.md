@@ -114,12 +114,13 @@ document.querySelector('body').style.color = 'black';
     </td>
 </table>
 
-## 3. Refactoring
-- 코드의 기능은 그대로 두고, 코드를 효율적으로 만들어서 개선하는 것
+#### 2.3. Refactoring
+- Refactoring
+	- 코드의 기능은 그대로 두고, 코드를 효율적으로 만들어서 개선하는 것
 	- 가독성을 놓이고, 유지보수 편리하도록, 중복 코드 없애기 등 
-#### 3.1 버튼이 여러개 있다면
-- onclick 안에 있는 태크가 자지 자신을 가리키고 있을 때 this 사용
-- document.querySelector('#night_day')-> this로 교체
+- 버튼이 여러개 있다면
+	- onclick 안에 있는 태크가 자지 자신을 가리키고 있을 때 this 사용
+	- document.querySelector('#night_day')-> this로 교체
 ```
 <H2>Refectoring button</H2>
 <input  type="button" value = 'day' onclick="
@@ -134,8 +135,8 @@ document.querySelector('body').style.color = 'black';
   }
 ">
 ```
-#### 3.2 중복을 최대한 없애기
-- 변수 사용하기
+- 중복을 최대한 없애기
+	- 변수 사용하기
 ```
 <input  type="button" value = 'day' onclick="
     var target = document.querySelector('body');
@@ -153,9 +154,9 @@ document.querySelector('body').style.color = 'black';
 
 
 
-## 4. 반복
+## 3. 반복
 
-#### 4.1.[배열](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.array.html)
+#### 3.1.[배열](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.array.html)
 
 - 배열(array): 연관된 데이터를 정리정돈하여 담기 위한 수납상자
 
@@ -172,7 +173,7 @@ document.querySelector('body').style.color = 'black';
 </script>
 ```
 
-#### 4.2. [반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop.html)
+#### 3.2. [반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop.html)
 
 - 프로그램의 흐름을 제어
 
@@ -185,7 +186,7 @@ while(i < 3){
 }
 ```
 
-#### 4.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop%2Carray.html)
+#### 3.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop%2Carray.html)
 - 배열: 순서대로 연관된 데이터를 정리정돈
 - 반복문: 배열에 있는 데이터를 하나씩 꺼내어 자동화된 처리를 할 수 있음.
 ```
@@ -204,7 +205,7 @@ while(i < 3){
 </ul>
 ```
 
-#### 4.4.[night,day  예제](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop_statements.html)
+#### 3.4.[night,day  예제](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop_statements.html)
 
 ```
 <h1><a href="index.html">WEB</a></h1>
@@ -252,23 +253,47 @@ while(i < 3){
 </table>
 ---
 
+## 4. 함수
+- 코드를 정리하기 위한 수납상자
+#### 4.1. [함수로 만들기](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_1.function.html)
+```
+<script>
+	  function nightDayHandler(self){
+		var target = document.querySelector('body');
+		if (this.value =='night'){
+			target.style.backgroundColor= 'white';
+			target.style.color = 'black';
+			self.value = 'day';
+			...
+			
+			
+</script>
 
+<input  type="button" value = 'day' onclick="
+		nightDayHandler(this);">
+```
 
-
-
-
-
-
-
-
-
-
+#### 4.2. [함수이론](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_2.function_basic.html)
+- 반복분: 연속적으로 반복되는 경우에 사용 가능
+- 함수: 연속적이지 않게 반복되는 경우에 사용
+```
+<script>
+    function two(){
+    // 재사용할 코드
+    	document.write('<li>2-1</li>');
+    	document.write('<li>2-2</li>');
+    }
+    document.write('<li>1</li>');
+    two();
+    document.write('<li>3</li>');
+    two();
+</script>
+```
+#### 5.3. [Refactoring](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_3.function_Refactoring.html)
+- function 정의할 때 this(전역 변수)=> 매개변수를 self로 변경
+- function 사용할 때 this 사용
 
 ---
-
-## 5. 함수
-
-- 
 
 
 
