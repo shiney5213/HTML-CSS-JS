@@ -14,11 +14,26 @@
 			target.style.backgroundColor= 'white';
 			target.style.color = 'black';
 			this.value = 'day';
-		}else{
+            //  모든 a태그 선택-> 배열
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i<alist.length){
+                // console.log(alist[i]);
+                alist[i].style.color = 'blue';
+                i += 1;
+            }
+        }else{
 			target.style.backgroundColor= 'black';
 			target.style.color = 'white';
 			this.value = 'night';
-		}
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i<alist.length){
+                // console.log(alist[i]);
+                alist[i].style.color = 'powderblue';
+                i += 1;
+	    	}
+        }
 	">
     <ol>
         <li><a href="1.html">HTML</a></li>

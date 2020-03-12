@@ -7,7 +7,7 @@
 
 ---
 
-## 1. [BASIC](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/1.basic.html)
+## 1. [BASIC](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/1.basic.html)
 
 #### 1.1 event
 
@@ -78,7 +78,7 @@ document.querySelector('body').style.color = 'black';
 
 ---
 
-## 2.[ 조건문(Conditianal Statements)](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/2.conditional_statements.html)
+## 2.[ 조건문(Conditianal Statements)](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/2.conditional_statements.html)
 
 #### 2.1. 형식
 
@@ -172,7 +172,7 @@ document.querySelector('body').style.color = 'black';
 </script>
 ```
 
-#### 4.2. [반복문](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.loop.html)
+#### 4.2. [반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop.html)
 
 - 프로그램의 흐름을 제어
 
@@ -185,28 +185,72 @@ while(i < 3){
 }
 ```
 
+#### 4.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop%2Carray.html)
+- 배열: 순서대로 연관된 데이터를 정리정돈
+- 반복문: 배열에 있는 데이터를 하나씩 꺼내어 자동화된 처리를 할 수 있음.
+```
+<h2>Number Array</h2>
+<script>
+    var number=['One','Two', 'Three', 'Four', 'Five', 'Six'];
+</script>
+<ul>
+    <script>
+    var i = 0;
+    while(i<number.length){
+        document.write('<li><a href = "http://a.com/'+number[i]+'">'+number[i]+'</a></li>');
+        i =i +1;
+    }
+    </script>
+</ul>
+```
 
-
-
-
-
-
-
+#### 4.4.[night,day  예제](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop_statements.html)
 
 ```
-var links = document.querySelectorAll('a');
-var i = 0;
-while(i<links.length){
-  links[i].sthle.color = 'pow'
+<h1><a href="index.html">WEB</a></h1>
+    <input  type="button" value = 'day' onclick="
+		var target = document.querySelector('body');
+		if (this.value =='night'){
+			target.style.backgroundColor= 'white';
+			target.style.color = 'black';
+			this.value = 'day';
+            //  모든 a태그 선택-> 배열
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i<alist.length){
+                // console.log(alist[i]);
+                alist[i].style.color = 'blue';
+                i += 1;
+            }
+        }else{
+			target.style.backgroundColor= 'black';
+			target.style.color = 'white';
+			this.value = 'night';
+            var alist = document.querySelectorAll('a');
+            var i = 0;
+            while(i<alist.length){
+                // console.log(alist[i]);
+                alist[i].style.color = 'powderblue';
+                i += 1;
+	    	}
+        }
+	">
+    <ol>
+        <li><a href="1.html">HTML</a></li>
+        <li><a href="2.html">CSS</a></li>
+        <li><a href="3.html">JavaScript</a></li>
 
-}
+    </ol>
 ```
 
 
-
-#### 4.2. 반복문
-
-- 
+<table>
+    <tr>
+    <td><img src="images\4.loof_1.png" width = 200px /></td>
+    <td><img src ="images\4.loof_2.png" width = 200px /></td>
+    </td>
+</table>
+---
 
 
 
