@@ -289,12 +289,54 @@ while(i < 3){
     two();
 </script>
 ```
-#### 5.3. [Refactoring](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_3.function_Refactoring.html)
+#### 4.3. [Refactoring](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_3.function_Refactoring.html)
 - function 정의할 때 this(전역 변수)=> 매개변수를 self로 변경
 - function 사용할 때 this 사용
 
 ---
 
+## 5. 객체
 
+#### 5.1. 객체
 
-## 6. 객체
+- 연관된 함수와 변수를 정리정돈하기 위한 수납상자
+
+```javascript
+//함수 사용
+<script>
+	  function LinksSetColor(color){
+		var alist = document.querySelectorAll('a');
+		var i = 0;
+		while(i<alist.length){
+                // console.log(alist[i]);
+                alist[i].style.color = color;
+                i += 1;
+            }
+	  }
+	  function BodySetColor(color){
+		document.querySelector('body').style.color = color;
+
+	  }
+	  function BodySetBackgroundColor(color){
+		document.querySelector('body').style.backgroundColor= color;
+
+	  }
+	  function nightDayHandler(self){
+		var target = document.querySelector('body');
+		if (self.value =='night'){
+			BodySetBackgroundColor('white');
+			BodySetColor('black');
+			self.value = 'day';
+			LinksSetColor('powderblue')
+            
+        }else{
+			BodySetBackgroundColor('black');
+			BodySetColor('white');
+			self.value = 'night';
+			LinksSetColor('blue')
+
+        }
+	  }
+  </script>	
+```
+
