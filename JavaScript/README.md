@@ -340,3 +340,45 @@ while(i < 3){
   </script>	
 ```
 
+#### 5.2 함수->객체 
+
+```html
+<script>
+	//   객체 사용
+var Body = {
+  setColor:function(color){
+	document.querySelector('body').style.color = color;
+	},    
+		
+  setBackgroundColor: function(color){
+	document.querySelector('body').style.backgroundColor= color;
+	}
+}
+	  
+var Links = {
+  setColor: function(color){
+	var alist = document.querySelectorAll('a');
+	var i = 0;
+	while(i<alist.length){
+       alist[i].style.color = color;
+       i += 1;
+      }
+  }
+}
+function nightDayHandler(self){
+  var target = document.querySelector('body');
+	if (self.value =='night'){
+	  Body.setBackgroundColor('white');
+	  Body.setColor('black');
+	  self.value = 'day';
+	  Links.setColor('powderblue')    
+    }else{
+	  Body.setBackgroundColor('black');
+	  Body.setColor('white');
+	  self.value = 'night';
+	  Links.setColor('blue')
+	  }
+  }
+  </script>	
+```
+
