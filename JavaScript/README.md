@@ -382,3 +382,7 @@ function nightDayHandler(self){
   </script>	
 ```
 
+## 6.
+
+- 서로 연관된 코드들을 파일로 묶어서 그룹핑하기
+- 많은 웹페이지들을 정리할 수 있음.
