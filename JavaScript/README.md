@@ -382,7 +382,67 @@ function nightDayHandler(self){
   </script>	
 ```
 
-## 6.
+## 6.  파일로 쪼개기
 
 - 서로 연관된 코드들을 파일로 묶어서 그룹핑하기
 - 많은 웹페이지들을 정리할 수 있음.
+
+```
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src= 'colors.js'>  </script>
+</head>
+```
+
+- colors.js
+
+  ```
+  var Body = {
+  	setColor:function(color){
+  		document.querySelector('body').style.color = color;
+  	},    
+  	// 객체의 property와 property를 구분할 때 콤마(,)를 찍음
+  	setBackgroundColor: function(color){
+  		document.querySelector('body').style.backgroundColor= color;
+  	}
+    }
+    
+    var Links = {
+  	setColor: function(color){
+  	var alist = document.querySelectorAll('a');
+  	var i = 0;
+  	while(i<alist.length){
+  			// console.log(alist[i]);
+  			alist[i].style.color = color;
+  			i += 1;
+  		}
+  	  }
+    }
+    function nightDayHandler(self){
+  	var target = document.querySelector('body');
+  	if (self.value =='night'){
+  		Body.setBackgroundColor('white');
+  		Body.setColor('black');
+  		self.value = 'day';
+  		Links.setColor('powderblue')
+  		
+  	}else{
+  		Body.setBackgroundColor('black');
+  		Body.setColor('white');
+  		self.value = 'night';
+  		Links.setColor('blue')
+  
+  	}
+    }
+  ```
+
+  - 장점
+    - colors.js파일만 수정해서 쉽게 재사용,수정할 수 있음.
+    - 유지보수가 용이
+    - 가독성이 좋아짐. 코드가 명확함.
+    - 코드의 의미를 파일의 이름을 통해 알 수 있음.
+  - 단점
+    - 웹서버에 접속을 많이 해야 함.(js파일을 다운받아야 하기 때문에)
+    - cashe(캐시): 한번 웹페이지에서 다운받은 파일을 저장 -> 서버: 비용 절감, 트래픽 절감/ 사용자: 빠름
