@@ -18,7 +18,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    #  path('', views.index),
+    #path('', views.index),
 	path('', views.portfolioView.as_view(), name = 'portfolioMain'),
-    # path('', views.UploadView.as_view(), name = 'UPLOAD'),
+    path('deepmoticon/', views.UploadView.as_view(), name = 'upload'),
+
+    #path('deepmoticon/', include('deepmoticon.urls')),
+    # path('deepmoticon/', views.deepmoticon),
+    # path('deepmoticonForm/', views.deepmoticonForm),
 ]
