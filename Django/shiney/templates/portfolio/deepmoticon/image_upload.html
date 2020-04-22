@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <title>dogonicon</title>
+  <style>
+    div{width: 100%;
+        
+
+    }
+    div.left{
+        width: 40%;
+        float: left;
+        align-items: center;
+    }
+    div.right{
+        width: 60%;
+        float: right;
+    }
+  </style>
+
+    <script>
+        // content, cate, index를 인수로 받아 form 태그로 전송하는 함수
+        function goPage(filename) {
+        // name이 paging인 태그
+        var f = document.paging;
+
+        // form 태그의 하위 태그 값 매개 변수로 대입
+        f.filename.value = filename;
+
+        // input태그의 값들을 전송하는 주소
+        f.action = " "
+
+        // 전송 방식 : post
+        f.method = "post"
+        f.submit();
+    };
+    </script>     
+</head>
+
+<body>
+    <h1> Do you want to make EMOTICON? <br>
+        please upload your dog image!
+    </h1>
+
+
+    <div class=right>
+        <form name="paging">
+            <!-- <input type="file" name="filename"/>
+            <input type="submit" name="upload"/> -->
+        </form>
+        <!-- a태그로 인수 전달 -->
+        <a href="javascript:goPage('dog2.jpg');">관람</a>
+    
+    </div>
+
+
+
+<div class = left>
+    <form action='' enctype="multipart/form-data" method = 'POST'>
+    {% csrf_token %}
+    <input type = 'file' name = 'filename'>
+    <input type = 'submit' value = 'upload'>
+
+    </form>
+</div>
+
+
+
+
+
+
+</body>
+</html>
