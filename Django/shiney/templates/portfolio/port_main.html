@@ -1,22 +1,20 @@
 {% extends 'portfolio/base.html' %}
-<!-- https://kutar37.tistory.com/entry/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C%EC%87%BC-%EA%B5%AC%ED%98%84-cssjavascriptjquery -->
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Portfolio</title>
-  <link rel = "stylesheet" type ="text/css" href="port_main.css">
-  {% load static %}
-</head>
+{% load static %}
 
+{% block title %}base.html{% endblock %}
 
-<body>
+{% block extrastyle %}
+    {% static 'css/port_main.css' %}
+    {% static 'js/port_main.js %'}
+{% endblock %}
 
 {% block content %}
+<div title>
+    <h1> SHINEY's Portfolio</h1>
+</div>
 
-<h1> SHINEY's Portfolio</h1>
+
 <div class="slideshow-container">
 
 	<div class="mySlides fade">
@@ -78,10 +76,10 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 
-</script>
 
+</script>
+<script type="text/javascript" src="/static/js/port_main.js"></script>
 {% endblock %}
 
-
-</body>
-</html>
+<!-- 참고
+https://onsil-thegreenhouse.github.io/programming/django/web_programmig/2017/10/19/django_tutorial2_ch1-5/ -->
