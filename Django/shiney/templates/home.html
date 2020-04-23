@@ -4,32 +4,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width">
 
-<title>http://www.blueb.co.kr</title>
+<title>SHINEY</title>
 <!-- <link rel="stylesheet" type="text/css" href="home-styleSheet.css" /> -->
 <!-- <script type="text/javascript" src="home_js.js"></script> -->
 {% load static %}
+
 <style >
-
-.wrapper1 {overflow: hidden;
+div{width: 100%;
+    }
+div.left{
+    width: 50%;
+    float: left;
 }
-.wrapper2 {overflow: hidden;
+div.right{
+    width: 50%;
+    float: right;
 }
-.wrapper > a {float: left;
-margin : 0;
-} 
 
-
-}
 </style>
 
 </head>
 <body>
 	<div class = 'wrapper1'>
-		<a href="portfolio/"><img src = '../static/home/1.aboutus.jpg'  > </a>
-		<a href="portfolio/"><img src = '../static/home/2.portfolio.jpg' > </a>
+        <div class=left>
+            <a href="portfolio/"><img src = '../static/home/1.aboutus.jpg' > </a>
+        </div>
+        <div class = right>
+            <a href="portfolio/"><img src = '../static/home/2.portfolio.jpg'  > </a>
+        </div>
+    </dig>
 	<div class = 'wrapper2'>
-		<a href="portfolio/"><img src = '../static/home/3.works.jpg'  > </a>
-		<a href="portfolio/"><img src = '../static/home/4.github.jpg' > </a>
+        <div class=left>
+            <a href="portfolio/"><img src = '../static/home/3.works.jpg'  > </a>
+        </div>
+        <div class=right>
+            <a href="portfolio/"><img src = '../static/home/4.github.jpg' > </a>
+        </div>
 	</div>
 </body>
 </html>
