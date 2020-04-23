@@ -1,32 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>SHINEY's PORTFOLIO</title>
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- <title>SHINEY's PORTFOLIO</title> -->
+    <title>{% block title %}Django Web Programming{% endblock %}</title>
+    {% load static %}
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+    <style type='text/css'>
+    div #title{ 
+        font-family:  'Nanum Gothic', sans-serif;
+        src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot);
+        src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+            url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff2) format('woff2'),
+            url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff) format('woff'),
+            url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.ttf) format('truetype');
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% block extrastyle %}{% endblock %}" />
+    <link rel="stylesheet" type="text/css"  href='/static/css/base.css'> 
 </head>
 
 <body>
-<div id='container'>
-    <div id=header>
-    <h3>SHINEY's PORTFOLIO</h3>
+    <div class=wrap>
+        <div class=header>
+            <h3>SHINEY's PORTFOLIO</h3>
+            <div class=title>
+                <h1>코딩하는 농부</h1>
+            </div>
+        </div>
 
+        <div class =nav>
+            <ui>
+                <li>About </li>
+                <li>Portpolio</li>
+                <li>Work</li>
+                <li>Contact</li>    
+            </ui>
+        </div>
+        
+        <div class=content>
+            {% block content %}
+           
+            {% endblock %}
+        </div>
+        
+        <div class = footer>
+            <h4>copyright ⓒshiney.net All right reserved.</h4>
+            <!-- <a href="https://github.com/shiney5213">git-hub</a> -->
+        </div>
     </div>
-    <div id=upload>
-    {% block content %}
-    {% endblock %}
-
-    </div>
-
-    <br>
-    <br>
-    <div id=footer>
-        <h3>contact me</h3><br>
-        <a href="https://github.com/shiney5213">git-hub</a>
-
-    </div>
-</div>
 </body>
 </html>
 
