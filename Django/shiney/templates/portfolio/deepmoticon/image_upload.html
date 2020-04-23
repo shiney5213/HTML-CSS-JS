@@ -1,77 +1,155 @@
+{% extends 'portfolio/base.html' %}
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <title>dogonicon</title>
-  <style>
-    div{width: 100%;
-        
-
-    }
-    div.left{
-        width: 40%;
-        float: left;
-        align-items: center;
-    }
-    div.right{
-        width: 60%;
-        float: right;
-    }
-  </style>
-
-    <script>
-        // content, cate, index를 인수로 받아 form 태그로 전송하는 함수
-        function goPage(filename) {
-        // name이 paging인 태그
-        var f = document.paging;
-
-        // form 태그의 하위 태그 값 매개 변수로 대입
-        f.filename.value = filename;
-
-        // input태그의 값들을 전송하는 주소
-        f.action = " "
-
-        // 전송 방식 : post
-        f.method = "post"
-        f.submit();
-    };
-    </script>     
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <title>dogonicon</title>
+    
+     <style>
+        html{
+            margin:0;
+            min-height: 100%;
+        }
+        body{
+            position: static;
+            min-height: 100%;
+        }
+        .wrap{
+            
+            width:100%;
+            margin:0;
+        }
+        div{
+            width: 100%;
+        }
+        div.left{
+            width: 40%;
+            float: left;
+            align-items: center;
+        }
+        div.right{
+            width: 60%;
+            float: right;
+        }
+    
+      </style> 
 </head>
 
 <body>
-    <h1> Do you want to make EMOTICON? <br>
-        please upload your dog image!
-    </h1>
+    {% block content %}
 
+    <div class=wrap>
 
-    <div class=right>
-        <form name="paging">
-            <!-- <input type="file" name="filename"/>
-            <input type="submit" name="upload"/> -->
-        </form>
-        <!-- a태그로 인수 전달 -->
-        <a href="javascript:goPage('dog2.jpg');">관람</a>
-    
+        <h1> Do you want to make EMOTICON?  </h1>
+            
+        <div class = 'left'>
+            <h2>please upload your dog image!</h2>
+            <form action='' enctype="multipart/form-data" method = 'POST'>
+                {% csrf_token %}
+                <input type = 'file' name = 'filename'>
+                <input type = 'submit' value = 'upload'>
+            </form>
+        </div>
+
+        <div class=right>
+            <h2>Test this Image!</h1>
+            <table>   
+                <tr>
+                    <td>
+                    <form name="paging">
+                        {% csrf_token %}
+                        <input type = 'hidden' name ='filename'>
+                        <a href="javascript:testImage('dog1.jpg');"><img src= "/static/portfolio/deepmoticon/dog1.jpg" width = 200></a>
+                    </form>
+                    </td>
+                    <td>
+                        <form name="paging2">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog2.jpg');"><img src= "/static/portfolio/deepmoticon/dog2.jpg" width = 200></a>
+                        </form>
+                    </td>
+                    <td>
+                        <form name="paging3">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog3.jpg');"><img src= "/static/portfolio/deepmoticon/dog3.jpg" width = 200></a>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <form name="paging4">
+                        {% csrf_token %}
+                        <input type = 'hidden' name ='filename'>
+                        <a href="javascript:testImage('dog4.jpg');"><img src= "/static/portfolio/deepmoticon/dog4.jpg" width = 200></a>
+                    </form>
+                    </td>
+                    <td>
+                        <form name="paging5">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog5.jpg');"><img src= "/static/portfolio/deepmoticon/dog5.jpg" width = 200></a>
+                        </form>
+                    </td>
+                    <td>
+                        <form name="paging6">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog6.jpg');"><img src= "/static/portfolio/deepmoticon/dog6.jpg" width = 200></a>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <form name="paging7">
+                        {% csrf_token %}
+                        <input type = 'hidden' name ='filename'>
+                        <a href="javascript:testImage('dog7.jpg');"><img src= "/static/portfolio/deepmoticon/dog7.jpg" width = 200></a>
+                    </form>
+                    </td>
+                    <td>
+                        <form name="pagin8">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog8.jpg');"><img src= "/static/portfolio/deepmoticon/dog8.jpg" width = 200></a>
+                        </form>
+                    </td>
+                    <td>
+                        <form name="paging9">
+                            {% csrf_token %}
+                            <input type = 'hidden' name ='filename'>
+                            <a href="javascript:testImage('dog9.jpg');"><img src= "/static/portfolio/deepmoticon/dog9.jpg" width = 200></a>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
+<script>
+    function testImage(dogname='dog1.jpg') {
+        var f = document.paging;
+        var f = document.paging2;
+        var f = document.paging3;
+        var f = document.paging4;
+        var f = document.paging5;
+        var f = document.paging6;
+        var f = document.paging7;
+        var f = document.paging8;
+        var f = document.paging9;
+        f.filename.value = dogname;
+        f.action = " "
+        f.method = "post"
+        f.submit();
+    };
 
 
-<div class = left>
-    <form action='' enctype="multipart/form-data" method = 'POST'>
-    {% csrf_token %}
-    <input type = 'file' name = 'filename'>
-    <input type = 'submit' value = 'upload'>
-
-    </form>
-</div>
-
-
-
-
-
+</script>  
+{% endblock %}
 
 </body>
 </html>
