@@ -28,21 +28,27 @@ class portfolioView(View):
 
 class UploadView(View):
     def get(self, request):
-        return render(request, 'portfolio/deepmoticon/image_upload.html')
+        # return render(request, 'portfolio/deepmoticon/image_upload.html')
+        return render(request, 'portfolio/deepmoticon/image_merge.html')
+
 
     def post(self, request):
 
-        if request.FILES['filename']:
+        try: 
             file = request.FILES.get('filename', '')
             filename = file._name
-        
-        if file == '':
-            return HttpResponse('file을 다시 upload해주세요')
-        else:
-            fp = open(settings.BASE_DIR + f'/static/portfolio/deepmoticon/{filename}' , 'wb')
-            for chunk in file.chunks():
-                fp.write(chunk)
-            fp.close()
+            
+            
+            if file == '':
+                return HttpResponse('file을 다시 upload해주세요')
+            else:
+                fp = open(settings.BASE_DIR + f'/static/portfolio/deepmoticon/{filename}' , 'wb')
+                for chunk in file.chunks():
+                    fp.write(chunk)
+                fp.close()
+
+        except:
+            filename = request.POST['filename']
 
         ##### 이모티콘 만들기
         main.deepmoticon_start(filename)  
@@ -71,6 +77,7 @@ class UploadView(View):
         context= {'data': filename, 'video_files1': video_list1, 'video_files2': video_list2}
 
         # return HttpResponse('file upload success')
-        return render(request, 'portfolio/deepmoticon/image_result.html', context)
+        # return render(request, 'portfolio/deepmoticon/image_result.html', context)
+        return render(request, 'portfolio/deepmoticon/image_merge.html', context)
 
 
