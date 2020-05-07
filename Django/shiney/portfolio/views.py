@@ -29,7 +29,7 @@ class portfolioView(View):
 class UploadView(View):
     def get(self, request):
         # return render(request, 'portfolio/deepmoticon/image_upload.html')
-        return render(request, 'portfolio/deepmoticon/image_merge.html')
+        return render(request, 'portfolio/deepmoticon/image_input.html')
 
 
     def post(self, request):
@@ -78,6 +78,6 @@ class UploadView(View):
 
         # return HttpResponse('file upload success')
         # return render(request, 'portfolio/deepmoticon/image_result.html', context)
-        return render(request, 'portfolio/deepmoticon/image_merge.html', context)
+        return render(request, 'portfolio/deepmoticon/image_output.html', context)
 
 
