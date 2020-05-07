@@ -1,0 +1,16 @@
+<body>
+	<label for = 'nick'>nickname</label>
+	<input type = 'text' id = 'nick'>
+
+<script>
+var nick = document.getElementById('nick');
+
+nick.value = '별명을 입력하세요';
+
+nick.onfocus = function(){
+	this.style.background = 'orange';
+	this.value = '';
+}
+</script>
+
+</body>
