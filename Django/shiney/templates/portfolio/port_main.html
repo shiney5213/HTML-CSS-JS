@@ -6,80 +6,57 @@
 
 {% block extrastyle %}
     {% static 'css/port_main.css' %}
-    {% static 'js/port_main.js %'}
+
 {% endblock %}
 
 {% block content %}
 <div title>
     <h1> SHINEY's Portfolio</h1>
-</div>
+    <div class="w3-container">
+        <h2>Slideshow Indicators</h2>
+        <p>An example of using buttons to indicate how many slides there are in the slideshow, and which slide the user is currently viewing.</p>
+      </div>
+      
+      <div class="w3-content w3-display-container" style="max-width:800px">
+        <img class="mySlides" src="/static/portfolio/man-and-dog-1149400_1920.jpg" style="width:100%">
+        <img class="mySlides" src="/static/portfolio/friends-3042751_1920.jpg"  style="width:100%">
+        <img class="mySlides" src="/static/portfolio/man-and-dog-1149400_1920.jpg"  style="width:100%">
+        <div class="w3-center " style="width:100%">
+          <div class="w3-left " onclick="plusDivs(-1)">&#10094;</div>
+          <div class="w3-right" onclick="plusDivs(1)">&#10095;</div>
+          <span class="w3-badge " onclick="currentDiv(1)"></span>
+          <span class="w3-badge" onclick="currentDiv(2)"></span>
+          <span class="w3-badge " onclick="currentDiv(3)"></span>
+        </div>
+      </div>
+      
+      <script>
+      var slideIndex = 1;
+      showDivs(slideIndex);
+      
+      function plusDivs(n) {
+        showDivs(slideIndex += n);
+      }
+      
+      function currentDiv(n) {
+        showDivs(slideIndex = n);
+      }
+      
+      function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" w3-white", "");
+        }
+        x[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " w3-white";
+      }
+      </script>
 
-
-<div class="slideshow-container">
-
-	<div class="mySlides fade">
-	  <div class="numbertext">1 / 3</div>
-	  <a href = './deepmoticon/'><img src="../../static/portfolio/adorable-1850276_1920.jpg" style="width:50%">     </a>
-	  <div class="text">Caption Text</div>
-	</div>
-	
-	<div class="mySlides fade">
-	  <div class="numbertext">2 / 3</div>
-	  <img src="../../static/portfolio/adorable-3344414_1920.jpg" style="width:50%">
-	  <div class="text">Caption Two</div>
-	</div>
-	
-	<div class="mySlides fade">
-	  <div class="numbertext">3 / 3</div>
-	  <img src="../../static/portfolio/friends-3042751_1920.jpg" style="width:50%">
-	  <div class="text">Caption Three</div>
-	</div>
-	
-	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-	<a class="next" onclick="plusSlides(1)">&#10095;</a>
-	
-</div>
-	<br>
-
-<div style="text-align:center">
-	<span class="dot" onclick="currentSlide(1)"></span> 
-	<span class="dot" onclick="currentSlide(2)"></span> 
-	<span class="dot" onclick="currentSlide(3)"></span> 
-</div>
-
-<script>
-
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-
-
-</script>
-<script type="text/javascript" src="/static/js/port_main.js"></script>
 {% endblock %}
-
-<!-- 참고
-https://onsil-thegreenhouse.github.io/programming/django/web_programmig/2017/10/19/django_tutorial2_ch1-5/ -->
