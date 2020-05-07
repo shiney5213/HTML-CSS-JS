@@ -19,6 +19,7 @@ from . import wait_emoticon
 #from . import face_funit
 #from . import classification_test
 # import argparse
+from multiprocessing import Process
 
 
 def imshow(tit, image):
@@ -109,12 +110,22 @@ def deepmoticon_start(input_img):
         # imshow('circle_img', circle_img)
         # imshow('face_img', face_img)
 
-        chicken_emoticon.circle_img_make(args, i, filename, circle_img.copy(), max_img)
-        goodday_emoticon.heart_box(args, i, filename, face_img.copy())
+        p = Process(target=chicken_emoticon.circle_img_make, args = (args, i, filename, circle_img.copy(), max_img))
+        p.start()
+        p.join()
+
+        
+        q = Process(target=goodday_emoticon.heart_box, args=(args, i, filename, face_img.copy()))
+        q.start()
+        q.join()
 
         if flag2 == 'ok':
-            hand_emoticon.hand_video(args, i, filename, max_img.copy())
-            sweat_emoticon.sweat_video(args, i, filename, max_img.copy())
+            r= Process(target=hand_emoticon.hand_video, args =(args, i, filename, max_img.copy()))
+            r.start()
+            r.join()
+            s = Process(target=sweat_emoticon.sweat_video, args =(args, i, filename, max_img.copy()))
+            s.start()
+            s.join()
         else:
             light_emoticon.light(args,i, filename,max_img.copy(), 'circle')
             sweat_emoticon.sweat_video2(args, i, filename, max_img.copy())
