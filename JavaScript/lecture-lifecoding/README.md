@@ -382,7 +382,7 @@ function nightDayHandler(self){
   </script>	
 ```
 
-## 6.  [파일로 쪼개기](https://github.com/shiney5213/Study-Progralecture-lifecoding/ming/blob/master/JavaScript/lecture-lifecoding/5_3_web.html)
+## 6.  [파일로 쪼개기](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/5_3_web.html)
 
 - 서로 연관된 코드들을 파일로 묶어서 그룹핑하기
 - 많은 웹페이지들을 정리할 수 있음.
