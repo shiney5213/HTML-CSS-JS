@@ -7,7 +7,7 @@
 
 ---
 
-## 1. [BASIC](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/1.basic.html)
+## 1. [BASIC](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/1.basic.html)
 
 #### 1.1 event
 
@@ -78,7 +78,7 @@ document.querySelector('body').style.color = 'black';
 
 ---
 
-## 2.[ 조건문(Conditianal Statements)](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/2.conditional_statements.html)
+## 2.[ 조건문(Conditianal Statements)](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/lecture-lifecoding/2.conditional_statements.html)
 
 #### 2.1. 형식
 
@@ -156,7 +156,7 @@ document.querySelector('body').style.color = 'black';
 
 ## 3. 반복
 
-#### 3.1.[배열](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/3.array.html)
+#### 3.1.[배열](https://github.com/shiney5213/HTML-CSS-study/blob/master/JavaScript/lecture-lifecoding/3.array.html)
 
 - 배열(array): 연관된 데이터를 정리정돈하여 담기 위한 수납상자
 
@@ -173,7 +173,7 @@ document.querySelector('body').style.color = 'black';
 </script>
 ```
 
-#### 3.2. [반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop.html)
+#### 3.2. [반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/lecture-lifecoding/3.loop.html)
 
 - 프로그램의 흐름을 제어
 
@@ -186,7 +186,7 @@ while(i < 3){
 }
 ```
 
-#### 3.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop%2Carray.html)
+#### 3.3. [배열 & 반복문](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/lecture-lifecoding/3.loop%2Carray.html)
 - 배열: 순서대로 연관된 데이터를 정리정돈
 - 반복문: 배열에 있는 데이터를 하나씩 꺼내어 자동화된 처리를 할 수 있음.
 ```
@@ -205,7 +205,7 @@ while(i < 3){
 </ul>
 ```
 
-#### 3.4.[night,day  예제](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/3.loop_statements.html)
+#### 3.4.[night,day  예제](https://github.com/shiney5213/HTML-CSS-JS/blob/master/JavaScript/lecture-lifecoding/3.loop_statements.html)
 
 ```
 <h1><a href="index.html">WEB</a></h1>
@@ -255,7 +255,7 @@ while(i < 3){
 
 ## 4. 함수
 - 코드를 정리하기 위한 수납상자
-#### 4.1. [함수로 만들기](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_1.function.html)
+#### 4.1. [함수로 만들기](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/4_1.function.html)
 ```
 <script>
 	  function nightDayHandler(self){
@@ -273,7 +273,7 @@ while(i < 3){
 		nightDayHandler(this);">
 ```
 
-#### 4.2. [함수이론](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_2.function_basic.html)
+#### 4.2. [함수이론](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/4_2.function_basic.html)
 - 반복분: 연속적으로 반복되는 경우에 사용 가능
 - 함수: 연속적이지 않게 반복되는 경우에 사용
 ```
@@ -289,7 +289,7 @@ while(i < 3){
     two();
 </script>
 ```
-#### 4.3. [Refactoring](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/4_3.function_Refactoring.html)
+#### 4.3. [Refactoring](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/4_3.function_Refactoring.html)
 - function 정의할 때 this(전역 변수)=> 매개변수를 self로 변경
 - function 사용할 때 this 사용
 
@@ -382,7 +382,7 @@ function nightDayHandler(self){
   </script>	
 ```
 
-## 6.  파일로 쪼개기
+## 6.  [파일로 쪼개기](https://github.com/shiney5213/Study-Progralecture-lifecoding/ming/blob/master/JavaScript/lecture-lifecoding/5_3_web.html)
 
 - 서로 연관된 코드들을 파일로 묶어서 그룹핑하기
 - 많은 웹페이지들을 정리할 수 있음.
@@ -396,7 +396,7 @@ function nightDayHandler(self){
 </head>
 ```
 
-- colors.js
+- [colors.js](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/lecture-lifecoding/colors.js)
 
   ```
   var Body = {
