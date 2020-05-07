@@ -1,0 +1,45 @@
+<!DOCTYE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>Animation</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+	<style>
+		div{width: 100px; height:100px;
+			border:2px solid;
+			margin-bottom:20px;
+		}
+		/*CSS 모션 설정*/
+		#box1{ transition-duration: 2s; 
+		}
+	</style>
+</head>
+
+<body>
+	<h1>CSS animation and JavaScript Animation</h1>
+	<hr>
+	<div id = 'box1'> CSS Animation</div>
+	<div id = box2> Javascript Animation</div>
+
+	<script>
+		var box1 = document.getElementById('box1');
+		var box2 = document.getElementById('box2');
+
+		// css animation(Transition)
+		box1.onclick = function(){
+			this.style.marginLeft = '200px';
+		};
+
+		// JQuery Animation
+		box2.onclick = function(){
+			$(this).animate({
+				marginLeft: '200px'
+			}, 2000);
+		};
+	</script>
+
+
+</body> 
+</html>
