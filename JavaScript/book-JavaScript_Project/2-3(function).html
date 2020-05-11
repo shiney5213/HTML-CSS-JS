@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h1>Function</h1>
+	<hr>
+
+	<h2>function</h2>
+
+	<script>
+		function sum(a, b){
+			var result = a + b;
+			return result
+		}
+
+		var r = sum(3,5)
+		document.write('sum(3, 5) 결과는: ', r)
+
+	</script>
+
+	<hr>
+
+	<h2>call back</h2>
+
+	<script>
+		function sum(a, b, callback){
+			var result = a + b;
+			callback();
+			return result;
+		}
+
+		//콜백함수
+		var r = sum(10, 20, function(){
+			alert('a+b를 더했습니다')
+		});
+
+		document.write(r);
+	</script>
+
+	<hr>
+
+	<h2>practice</h2>
+
+	<script>
+		function isODD(num){
+			if (num % 2 == 0){
+				document.write(num, '은 짝수입니다' + '<br>')
+			} else{
+				document.write(num, '은 홀수입니다'+ '<br>')
+				
+			}
+		}
+
+		isODD(30);
+		isODD(25);
+	</script>
+</body> 
+</html>
