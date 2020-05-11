@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>Animation</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h1>Javascript Basic</h1>
+	<hr>
+	<h2>Variable</h2>
+
+	<script>
+		var number = 7;
+        document.write(number * 1 + '<br>');
+        document.write(number * 2 + '<br>');
+        document.write(number * 3 + '<br>');
+        document.write(number * 4 + '<br>');
+        document.write(number * 5 + '<br>');
+
+
+	</script>
+
+	<hr>
+	<h2>dynamic type</h2>
+	<script>
+
+		var number = 5;
+		var string = 'dog';
+		var bool = 'true';
+		var array = [];
+		var object = {};
+		// 변수type을 지정하지 않은 경우 
+		var who_am_i;    
+
+		document.write('type of ', number , ' : ', typeof number + '<br>');
+		document.write('type of ', string ,' : ', typeof string + '<br>');
+		document.write('type of ', bool ,' : ', typeof bool + '<br>');
+		document.write('type of ', array ,' : ', typeof array + '<br>');
+		document.write('type of ', object ,' : ', typeof object + '<br>');
+		document.write('type of ', who_am_i ,' : ', typeof who_am_i + '<br>'); //undefined
+
+	</script>	
+	<hr>
+	<h2>operation</h2>
+	<script>
+		var number1 = 5;
+		var number2 = 10;
+		var string = '5';
+
+		document.write('number1 :', number1 + '<br>')
+		document.write('number2 :', number2 + '<br>')
+		document.write('string :', "'",string,"'" + '<br>')
+		document.write('<br>')
+
+
+		document.write('number1 + number2 : ', number1 + number2 + '<br>');
+		document.write('number1 + number2 type : ', typeof (number1 + number2)+ '<br>');
+
+		document.write('number + string : ', number + string + '<br>');
+		document.write('number + string type : ', typeof (number + string )+ '<br>');
+		
+		document.write('number1, number2 :', number1, number2 + '<br>');
+
+
+
+	</script>
+
+</body> 
+</html>
