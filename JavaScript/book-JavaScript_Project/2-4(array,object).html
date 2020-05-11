@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h1>Array, Object</h1>
+	<hr>
+
+	<h2>Array</h2>
+	<script>
+		//배열 선언
+		var customer_name  =['my','ey','jw'];
+
+		//값 확인
+		document.write('ordinary array : ' )
+		for (var i = 0; i < 3; i ++){
+			document.write(customer_name[i] + ',')
+		};
+
+
+		//값 변경
+		document.write('<br>' +'changed array')
+		customer_name[0] = 'ym';
+		document.write(customer_name + '<br>');
+
+		//값 추가
+		document.write('appended array')
+		customer_name[3] = 'ti';
+		document.write(customer_name + '<br>');
+		
+
+		//배열 길이
+		var length = customer_name.length;
+		document.write('customer_name array length:', length+ '<br>');
+
+		// 모두 출력
+		for (var i = 0; i <length; i++){
+			document.write(customer_name[i] + '<br>')
+		}
+	</script>
+
+	<hr>
+	<h2>배열 조작 메서드</h2>
+	<script>
+		var customer_age = [10, 20, 30, 40, 50, 60]
+
+		document.write('ordinary: ', customer_age + '<br>');
+		document.write('reverse: ', customer_age.reverse() + '<br>');
+		document.write('join: ', customer_age.join('-') + '<br>');
+		document.write('sort: ', customer_age.sort() + '<br>');
+		document.write('slice: ', customer_age.slice(1,4) + '<br>');
+		document.write('concat: ', customer_age.concat(customer_name) + '<br>');
+		document.write('shift: ', customer_age.shift() + '<br>');
+		document.write('pop: ', customer_age.pop() + '<br>');
+
+	</script>
+
+	<hr>
+	<h2>Object</h2>
+	<script>
+		var book = {
+			title: '채식주의자',
+			author: '한강',
+			price: '12000'
+		};
+
+		document.write(book.title + '<br>');
+		document.write(book.author + '<br>')
+		document.write(book.price + '<br>')
+
+	</script>
+</body> 
+</html>
