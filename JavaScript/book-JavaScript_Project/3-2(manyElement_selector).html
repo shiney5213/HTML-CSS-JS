@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h1>Dom_method</h1>
+	<hr>
+
+	<h2>getElementsByTagName()</h2>
+	<ul>
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+
+	</ul>
+	<script>
+		var li = document.getElementsByTagName('li');
+		li[1].style.backgroundColor = 'blue';
+		li[1].style.color = 'red';
+
+	</script>
+
+	<hr>
+	<h2>querySelectorAll()</h2>
+	<ul>
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+
+	</ul>
+	<script>
+		function setColor(){
+			var li = document.querySelectorAll('li');
+
+			for(var i= 0; i<li.length; i ++){
+				li[i].style.color = 'green';
+				li[i].style.backgroundColor = 'orange';
+			}
+		}
+
+		setColor()
+
+	</script>
+
+</body> 
+</html>

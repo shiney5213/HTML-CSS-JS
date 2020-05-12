@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 200px;
+			height: 100px;
+			background-color: blue;
+			color : white;
+		}
+		.box2{
+			color :black ;
+			background-color: red;
+		}
+	</style>
+</head> 
+
+<body>
+	<h2>Practice</h2>
+	<hr>
+	<div id = 'box'>버튼을 누르시요</div>
+	<button  onclick = 'red()'>red</button>
+	<button  onclick = 'blue()'>blue</button>
+
+	<script>
+		function red(){
+			var box = document.getElementById('box');
+			
+			box.setAttribute('class', 'box2');
+
+			var getattr = box.getAttribute('class');
+			alert(getattr);
+		}
+
+		function blue(){
+			var box = document.getElementById('box');
+			box.removeAttribute('class');
+			var getattr = box.getAttribute('class');
+			alert(getattr);
+
+
+		}
+
+	</script>
+</body> 
+</html>

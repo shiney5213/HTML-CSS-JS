@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h1>Dom_method</h1>
+	<hr>
+
+	<h2>getElemetById</h2>
+	<h2 id = 'title'>document.getElementById</h2>
+	<script>
+		var title = document.getElementById('title');
+
+		title.style.color = 'white';
+		title.style.background = 'orange';
+		title.innerHTML = 'JavaScript로 문서를 조작';
+	</script>
+
+	<hr>
+	<h2>querySelector()</h2>
+
+	<ul>
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+	</ul>
+	<script>
+		var li = document.querySelector('li')
+
+		li.style.color = 'red';
+		li.style.background= 'blue';
+
+	</script>
+</body> 
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 100px;
+			height: 100px;
+			border: 3px solid black;
+		}
+		.box{
+			background-color: orange;
+		}
+	</style>
+</head> 
+
+<body>
+	<h2>속성 조작</h2>
+	<hr>
+
+	<h2>setAttribute()메서드</h2>
+	<div id = 'box' onclick = 'changeColor()'>Hello Box</div>
+	<script>
+		function changeColor(){
+			var box = document.getElementById('box');
+			box.setAttribute('class', 'box')
+
+			var getAttr = box.getAttribute('class');
+			alert(getAttr);
+
+			box.removeAttribute('class');
+			var getAttr = box.getAttribute('class');
+
+			alert(getAttr)
+		}
+		
+
+	</script>
+</body> 
+</html>

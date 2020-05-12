@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+		
+	</script>
+</head> 
+
+<body>
+	<h2>텍스트 조작</h2>
+	<div id = content> </div>
+	<script>
+		var content = document.querySelector('#content');
+		
+		// 텍스트 삽입
+		content.innerText = '<h1> new Text</h1>';
+
+		// HTML삽입
+		content.innerHTML +=  '<h1> new Text</h1>';
+
+	</script>
+
+	<hr>
+	<h2>스타일 객체와 속성 변경</h2>
+	<div id = 'box'> 색상바꾸기</div>
+	<button onclick = 'setColor()'>click</button>
+
+	<script>
+		function setColor(){
+			var box = document.getElementById('box');
+			box.style.color = 'white';
+			box.style.backgroundColor= 'orange';
+		}
+
+	</script>
+</body> 
+</html>
