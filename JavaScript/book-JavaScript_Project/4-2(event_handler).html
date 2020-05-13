@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			border: 5px dotted black;
+		}
+	</style>
+</head> 
+
+<body>
+	<h2>이벤트 핸들러</h2>
+	<hr>
+	<script>
+		window.onload = function(){
+		var h1 = document.querySelector('h1');
+		this.innerHTML = '문서를 로딩했습니다';
+		}		
+	</script>
+
+	<!-- <h1>홈페이지에 오신 것을 환영합니다</h1> -->
+
+	<script>
+		window.onload = function(){
+			var h1 = document.querySelector('h1');
+
+			h1.onclick = function(){
+				this.innerHTML = '클릭했습니다';
+			}
+		}
+
+	</script>
+
+	<h1>클릭해주세요</h1>
+
+
+</body> 
+</html>

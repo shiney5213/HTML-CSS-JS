@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			border: 5px dotted black;
+		}
+	</style>
+</head> 
+
+<body>
+	<h2>인라인 이벤트</h2>
+	<hr>
+
+	<a href= 'https://google.com' onclick = "alert('구글로 이동합니다')">구글</a>
+
+	<div id= box onmouseover = 'mover()' onmouseout = 'mout()' onmousedown='mclick()' onclick = 'mc()'>마우스 이벤트</div>
+	<input type="button" value = '초기화' onclick = 'format()'>
+
+	<script>
+		function mover(){
+			var M = document.getElementById('box');
+			M.innerText = '마우스가 들어왔네요';
+		}
+
+		function mout(){
+			var M = document.getElementById('box');
+			M.innerText = '마우스가 나갔네요';
+		}
+		
+		function mclick(){
+			var M = document.getElementById('box');
+			M.innerText = '마우스 클릭중';
+		}
+		function mc(){
+			var M = document.getElementById('box');
+			M.innerText = '마우스 클릭 완료';
+		}
+
+		function format(){
+			var M = document.getElementById('box');
+			M.innerText = '마우스 이벤트';
+		}
+
+
+
+
+	</script>
+</body> 
+</html>

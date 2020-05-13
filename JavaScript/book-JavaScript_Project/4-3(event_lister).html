@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			border: 5px dotted black;
+		}
+	</style>
+</head> 
+
+<body>
+	<h2>이벤트 리스너</h2>
+	<!-- <hr> -->
+
+	<!-- <button id = 'btn'> click</button>
+	<script>
+		var btn = document.getElementById('btn');
+		btn.onclick = function(){
+			alert('event1')
+		}
+
+		btn.onclick = function(){
+			alert('event2')
+		}
+	</script> -->
+
+	<hr>
+	<h2>여러 이벤트를 정의할 때</h2>
+	
+	<button id = btn2>click</button>
+	<script>
+		var btn = document.getElementById('btn2')
+		btn2.addEventListener('click', function(){
+			alert('event1')
+		})
+		btn2.addEventListener('click', function(){
+			alert('event2')
+		})
+	</script>
+
+</body> 
+</html>

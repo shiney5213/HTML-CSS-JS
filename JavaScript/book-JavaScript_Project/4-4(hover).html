@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			width: 100px;
+			height: 100px;
+			border : 3px solid black;
+		}
+		#box.hover{
+			background-color: orange;
+			color: white;
+		}
+		
+	</style>
+</head> 
+
+<body>
+	<div id = 'box'>
+		<p>마우스를 올려주세요</p>
+	</div>
+
+	<script>
+		var box = document.getElementById('box');
+		
+		//마우스 오버
+		box.addEventListener('mouseover', function(){
+			box.setAttribute('class', 'hover');
+			alert(box.getAttribute('class'));
+		})
+
+		//마우스 아웃
+		box.addEventListener('mouseout', function(){
+			box.removeAttribute('class');
+			alert(box.removeAttribute('class'));
+
+		})
+
+	</script>
+
+</body> 
+</html>
