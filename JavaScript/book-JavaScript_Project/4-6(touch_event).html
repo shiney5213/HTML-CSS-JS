@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			border: 3px solid black;
+		}
+		
+	</style>
+</head> 
+
+<body>
+	<h2>touch event</h2>
+	<hr>
+
+	<div id='box'>
+		<p>나를 터치해주세요</p>
+	</div>
+
+	<script>
+		var box = document.getElementById('box');
+
+		// 터치 제어를 위한 객체 선언
+		var touch = {
+			start: function(){
+				box.innerHTML = '나를 건드렸군요';
+				this.style.background = 'red';
+			},
+			end: function(){
+				box.innerHTML='손을 떼었군요';
+				this.style.background= '';
+			},
+			move: function(e){
+				box.innerHTML='만지는 중입니다';
+				this.style.background= 'yellow';
+			}
+		}
+
+		//터치 이벤트 리스터 추가
+		box.addEventListener('touchstart', touch.start);
+		box.addEventListener('touchend', touch.end);
+		box.addEventListener('touchmove', touch.move);
+	</script>
+
+
+	<h2>event binding</h2>
+	<hr>
+	<button id = 'btn' style = 'padding: 10px'>Click</button>
+
+	<script>
+		var btn = document.getElementById('btn');
+
+		function setColor(){
+			this.style.backgroundcolor= '#333';
+			this.style.color = 'orange';
+		}
+
+		btn.addEventListener('click', setColor);
+	</script>
+</body> 
+</html>
