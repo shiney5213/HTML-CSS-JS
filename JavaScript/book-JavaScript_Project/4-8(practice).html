@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#color{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			border: 3px solid black;
+		}
+		
+	</style>
+</head> 
+
+<body>
+	<h2>Practice-hover</h2>
+	<hr>
+	<h1 id = color>마우스를 올려주세요</h1>
+	
+	<script>
+		var color = document.getElementById('color');
+
+		var touch = {
+			over : function(){
+				color.style.background='red';
+			},
+			out : function(){
+				color.style.background= 'yellow'
+			} 
+		}
+		color.addEventListener('mouseover', touch.over);
+		color.addEventListener('mouseout', touch.out);
+
+	</script>
+</body> 
+</html>
