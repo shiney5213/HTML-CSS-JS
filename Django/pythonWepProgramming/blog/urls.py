@@ -14,19 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_paty # 한글 슬러그를 위해 re_path()사용
-from bookmark.views import BookmarkLV, BookmarkDV
+from django.urls import path, re_path
+# from bookmark.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV 
+from blog import views
 
+
+# 한글 슬러그를 위해 re_path()사용
 app_name = 'blog'
 urlpatterns = [
     # /blog/
-    path('', PostLV.as_view(), name = 'index'),
+    path('', views.PostLV.as_view(), name = 'index'),
 
     #/blog/post/
-    path('post/', PostLV.as_view(), name = 'post_list'),
+    path('post/', views.PostLV.as_view(), name = 'post_list'),
 
     #/blog/post/django-example
-    path(r'^post/(?P<sloug>[-\w]+)/$',views.PostDV.as_view(), name = 'post_detail'),
+    path(r'^post/(?P<slug>[-\w]+)/$',views.PostDV.as_view(), name = 'post_detail'),
 
     #/blog/archive
     path('archive/', views.PostAV.as_view(), name = 'post_archive'),
