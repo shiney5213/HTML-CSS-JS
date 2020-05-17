@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		
+	</style>
+</head> 
+
+<body>
+	<h2>this 객체 </h2>
+	<hr>
+
+	<ul id = 'gnb'> 
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+	</ul>
+
+	<script>
+		var gnb = document.getElementById('gnb');
+		var li = gnb.getElementsByTagName('li');
+
+		li[0].onclick = function(){
+			this.style.backgroundColor= 'red'
+		}
+	</script>
+</body> 
+</html>

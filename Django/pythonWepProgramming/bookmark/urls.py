@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path # 한글 슬러그를 위해 re_path()사용
+from bookmark.views import BookmarkLV, BookmarkDV
 
+app_name = 'bookmark'
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    
+    path('bookmark/', BookmarkLV.as_view(), name = 'index'),
+    path('bookmark/<int:pk>/', BookmarkDV.as_view(), name = 'detail'),
+    
 ]

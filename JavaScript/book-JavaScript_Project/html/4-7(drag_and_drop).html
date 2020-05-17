@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+	<style>
+		#box{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			border: 3px solid black;
+		}
+		
+	</style>
+</head> 
+
+<body>
+	<h2>drag and drop</h2>
+	<hr>
+
+	<div id = box>dag and drop practice</div>
+	<script>
+		var box = document.getElementById('box');
+		
+		//torch를 위한 객체 선언
+		var touch = {
+			tstart: function(){
+				box.innerHTML = '나를 건드렸군요';
+				this.style.background	= 'red'
+			},
+			tend: function(){
+				box.innerHTML = '손을 떼었군요';
+				this.style.background = 'blue'
+			},
+
+			tmove: function(e){
+
+				//현재 터치 이벤트의 위치(배열) 감지
+				var touchobj = e.changedTouches[0];
+
+				// 현재손가락 위치
+				var x = parseInt(touchobj.clientX);
+				var y = parseInt(touchobj.clientY);
+				var ex = x - 100;
+				var ey = y - 100;
+				box.innerHTML= 'touch중입니다';
+				this.style.background = 'yellow';
+
+				this.style.left = ex + 'px';
+				this.style.top = ex + 'px';
+			}
+		}
+
+		//터치이벤트 리스터 추가
+		box.addEventListener('touchstart', touch.tstart);
+		box.addEventListener('touchend', touch.tend);
+		box.addEventListener('touchmove', touch.tmove);
+
+
+
+	</script>
+</body> 
+</html>

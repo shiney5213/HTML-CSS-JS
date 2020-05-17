@@ -9,6 +9,7 @@ items/
 item/
 static/
 bluebook_src.tar/
+예제소스/
 
 ### Data ###
 *.csv
