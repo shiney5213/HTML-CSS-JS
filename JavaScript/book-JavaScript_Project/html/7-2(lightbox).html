@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+	<meta charset = 'UTF-8'>
+	<title>JavaScript</title>
+	<script  src =https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js >
+	</script>
+
+	<link rel="stylesheet" href="../css/7-2(lightbox).css">
+	
+</head> 
+
+<body>
+	<header>
+		<h2>Light Box</h2>
+		<hr>
+
+		<img class = 'thumb' src = '../media/lightbox01.jpg' width = '100' onclick = 'lightbox_open(1)'>
+		<img class = 'thumb' src = '../media/lightbox02.jpg' width = '100' onclick = 'lightbox_open(2)'>
+		<img class = 'thumb' src = '../media/lightbox03.jpg' width = '100' onclick = 'lightbox_open(3)'>
+	</header>
+
+	<!-- /라이트박스 배경 -->
+	<div id = 'block'></div>
+
+	<!-- 라이트박스 창 -->
+	<div id = lightbox>
+		<h1>초코의 재발견</h1>
+		<p>내가 좋아하는 것: 초코, 맥주, 자전거, 자연</p>
+
+		<figure>
+			<!-- class= active: 현재 표시되는 이미지로 지정하기 위해서 -->
+			<img src="../media/lightbox01.jpg" class='active' alt="">  
+			<img src="../media/lightbox02.jpg" alt="">
+			<img src="../media/lightbox03.jpg" alt="">
+		</figure>
+
+		<div class = indicator>
+			<button onclick = 'change_img(this.innerHTML)'>1</button>
+			<button onclick = 'change_img(this.innerHTML)'>2</button>
+			<button onclick = 'change_img(this.innerHTML)'>3</button>
+		</div>
+
+		<div class = 'btn-close' onclick = lightbox_close>X</div>
+	</div>
+	<script type = 'text/javascript' src = '../js/7-2(lightbox).js'></script>
+
+</body> 
+</html>
