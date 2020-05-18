@@ -1,0 +1,57 @@
+*{margin: 0;}
+body{padding: 20px}
+h1,h2,h3,h4,p{
+    font-weight: normal;
+    margin: 5px;
+}
+
+/* 라이트박스 컨테이너 */
+#lightbox.active{
+    position: absolute;
+    overflow:hidden;
+    background: #333;
+    width: 800px;
+    height: 540px;
+    left:50%;
+    margin-left: -400px;
+    top: 50%;
+    margin-left: -250px;
+    box-sizing: border-box;
+    padding:30px;
+    z-index: inherit 99;
+    display:block;
+}
+
+#lightbox{display:none;}
+#lightbox h1, #lightbox p{
+    color:white;
+    text-align: center;
+    margin-bottom:10px;
+}
+
+/* 이미지 박스 */
+figure{
+    width:500px;
+    height:300px;
+    margin:10px auto;
+    overflow:hidden;
+}
+flgure img{
+    display: none;
+    position:absolute;
+}
+figure ing.active{display:block;}
+
+/* 창닫기 버튼 */
+.btn-close{
+    position:absolute;
+    top:0px;
+    right:0px;
+    padding:10px;
+    color:white;
+    font-size:large;
+}
+
+.btn-close:hover{
+    background-color:#666;S
+}
