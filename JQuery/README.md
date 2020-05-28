@@ -81,7 +81,6 @@ $(document).mousemove(function(e) {
 
 ## 5. Array
 #### 5.1. 추가
-
 ```
 $time_array.push($maxduration2 * $percent / 100);
 ```
@@ -90,6 +89,11 @@ $time_array.push($maxduration2 * $percent / 100);
 $.each($time_array,function(i,value){
       if($time_array2.indexOf(value) == -1 ) $time_array2.push(value);
 });
+```
+#### 5.3. 값 변경
+```
+//i번째 인텍스부터 j개의 값을 1,2,로 바꾸기
+$analysis_start_array.slice(i,j,1,2)
 ```
 
 ## 6. CSS 속성 제어
