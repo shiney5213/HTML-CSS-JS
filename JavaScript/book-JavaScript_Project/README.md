@@ -28,25 +28,7 @@
 
 ## 2. 기억할 것
 
-#### 1. [css, js파일 link](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/book-JavaScript_Project/html/6-3(calculator).html)
-
-- css파일
-
-```
-<head>
-	<link rel = 'stylesheet' href = 'css/6-3(calculator).css'>
-</head>
-```
--  js파일
-
-```
-<body>
-   html내용
-   	<script type = 'text/javascript' src = 'js/6-3(calculator).js'>
-</body>
-```
-
-#### 2. [form 태그](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/book-JavaScript_Project/2.실전프로젝트_6.프로젝트1(계산기).ipynb)
+#### 1. [form 태그](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/book-JavaScript_Project/2.실전프로젝트_6.프로젝트1(계산기).ipynb)
 - 다양한 정보를 입력받을 때 사용
 
 - form 객체 가져오기
