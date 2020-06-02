@@ -37,20 +37,28 @@ CSS
 	- static(default) 
 		- top, bottom, left, right의 영향안받음, 
 		- 왼쪽-> 오른쪽/ 위-> 아래
+		
 	- relative
-		- 기존의 static이었던 위치를 기준으로 배치
+		- 기존의 static이었던 위치를 기준으로 배치(defalt속석이 static이므로)
 		- top, left, right, buttom 속성 사용
 		- 음수: 
+		
 	- fixed
 		- 뷰포트 기준으로 배치
 		- 스크롤되도 항상 같은 위치에 유지
+		
 	- absolute
-		- position: static속성을 갖지 않은 기준으로 배치
+		
+		- 문서의 원래 위치와 상관없이 위치 지정 가능
+		
+		- position: static속성이 아닌 상위요소를 기준으로 배치
 		- postion: relative, absolute, fixed 태그가 없다면 body 태그 기준
+		- top, left, right, buttom 속성 사용 가능
+		- static, relative와 달리 바깥쪽에 공간이 생기지 않음.
+		
 	- sticky: 사용자의 스크롤 위치를 기준으로 배치
 
 ## 5. padding
-
 
 
 
