@@ -1,30 +1,5 @@
-# HTML
-
----
-
-#### 1. [css, js파일 link](https://github.com/shiney5213/Study-Programming/blob/master/JavaScript/book-JavaScript_Project/html/6-3(calculator).html)
-
-- css파일
-
-```
-<head>
-	<link rel = 'stylesheet' href = 'css/6-3(calculator).css'>
-</head>
-```
--  js파일
-
-```
-<body>
-   html내용
-   	<script type = 'text/javascript' src = 'js/6-3(calculator).js'>
-</body>
-```
-
-
-
-
-
 CSS
+
 ---
 
 ## 1. overflow 
@@ -75,11 +50,6 @@ CSS
 	- sticky: 사용자의 스크롤 위치를 기준으로 배치
 
 ## 5. padding
-
-
-
-
-
 
 
 
