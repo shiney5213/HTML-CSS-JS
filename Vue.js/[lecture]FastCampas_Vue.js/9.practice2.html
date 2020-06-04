@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue test</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src = 'vue.js'></script>
+    <style>
+        .box{
+            width: 150px;
+            height: 150px;
+            background: rgb(241, 35, 35);
+            border-radius: 10px;
+            cursor: pointer;
+            /* transition: 전상태, 후상태를 자연스럽게 애니메이션해주는 기능 */
+            transition: all 1s;  
+        }
+        .active{
+            width: 400px;
+            background: salmon;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" v-bind:class="{'active':toggle}"></div>
+        <button v-on:click = "toggleElement">Toggle</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+              toggle: false
+            },
+            methods: {
+                toggleElement: function(){  // toggleElement(){로 단축해서 사용 가능
+                    this.toggle = !this.toggle
+                }
+            }
+        })
+    </script>
+</body>
+</html>
