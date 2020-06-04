@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src = 'vue.js'></script> -->
+    <style>
+        .text{
+            font-size: 50px;
+        }
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'app'>
+        <!-- class라는 속성을 Vue의 data와 바인딩해서 제어하겠다 -->
+        <!-- active가 true일 때만 active라는 class 속성을 지정해라 -->
+        <div class="text" v-bind:class='{"active": active}'>  
+             {{message}}
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message:'안녕하세요  Vue!!',
+                active: true,
+            }
+        })
+    </script>
+</body>
+</html>
