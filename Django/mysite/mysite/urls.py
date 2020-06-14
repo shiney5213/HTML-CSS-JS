@@ -21,4 +21,6 @@ urlpatterns = [
     path('birthday/', include('birthday.urls')),
     path('jupyter/', include('jupyter.urls')),
     path('memo/', include('memo.urls')),
+    path('highlight/', include('highlight.urls')),
+
 ]
