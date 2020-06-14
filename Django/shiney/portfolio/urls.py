@@ -21,7 +21,7 @@ urlpatterns = [
     #path('', views.index),
 	path('', views.portfolioView.as_view(), name = 'portfolioMain'),
     path('deepmoticon/', views.UploadView.as_view(), name = 'upload'),
-
+    
     #path('deepmoticon/', include('deepmoticon.urls')),
     # path('deepmoticon/', views.deepmoticon),
     # path('deepmoticonForm/', views.deepmoticonForm),
