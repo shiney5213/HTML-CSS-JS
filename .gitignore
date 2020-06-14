@@ -79,8 +79,7 @@ bluebook_src.tar/
 *.bmp
 *.dib
 
-# ICO
-*.ico
+
 
 # 3D Images
 *.3dm
