@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link rel="shortcut icon" href="../../static/images/icons/favicon.ico">
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/dot-luv/jquery-ui.css">
+</head>
+<body>
+    <input type="button" value = 'save' id = 'saveBtn'>
+
+
+    
+    <script>
+	$('#saveBtn').click(function(){
+
+         // method = meghod||'post';
+         var form = document.createElement('form');
+         form.setAttribute('method', 'post');
+         form.setAttribute('action', '/highlight/subtitle');
+
+         document.body.appendChild(form);
+
+         params = {'startarray': 0,'endarray': 1}
+         for(var key in params){
+             var hiddenField = document.createElement('input');
+             hiddenField.setAttribute('type', 'hidden');
+             hiddenField.setAttribute('name', key);
+             hiddenField.setAttribute('value', params[key]);
+             form.appendChild(hiddenField);
+        }
+        alert(form);
+        //자동으로 submit하기
+        //  document.hiddenform.submit();
+        form.submit();
+    });    
+        //  $.ajax({url: 'subtitle', 
+		// 		type: 'POST',
+		// 		data: {'analysis_start': 0,
+		// 				'analysis_end': 1,
+		// 		},
+		// })
+		// .done(function(data){
+		// 	alert(data);
+        // });
+
+
+    </script>
+</body>
+</html>
