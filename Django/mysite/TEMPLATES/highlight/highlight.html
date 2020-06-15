@@ -20,12 +20,12 @@
 
          // method = meghod||'post';
          var form = document.createElement('form');
-         form.setAttribute('method', 'post');
+         form.setAttribute('method', 'POST');
          form.setAttribute('action', '/highlight/subtitle');
 
          document.body.appendChild(form);
 
-         params = {'startarray': 0,'endarray': 1}
+         params = {'save_start': 0,'save_end': 3}
          for(var key in params){
              var hiddenField = document.createElement('input');
              hiddenField.setAttribute('type', 'hidden');
@@ -33,7 +33,7 @@
              hiddenField.setAttribute('value', params[key]);
              form.appendChild(hiddenField);
         }
-        alert(form);
+        // alert(form);
         //자동으로 submit하기
         //  document.hiddenform.submit();
         form.submit();

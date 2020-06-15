@@ -14,6 +14,25 @@
             width : 100px;
             height: 50px;
         }
+
+        .textInput{
+            width: 1000px;
+        }
+
+        .indexBtn{
+            width: 30px;
+            background-color: aqua;
+        }
+
+        .sub{
+            background: #ccc;
+            padding: 10px;
+            width: 1020px;
+            border-radius: 5px;
+        }
+        .timeInput{
+            width:200px;
+        }
     </style>
 
 
@@ -27,66 +46,112 @@
     </video>
 
 <!-- <h2 id = "title"></h2> -->
-<!-- <h2>{{sub_list}}</h2>
-<h2>{{sub_dict}}</h2> -->
+<!-- <h2>{{sub_list}}</h2>-->
+<!-- <div id="sub_index"></div>
+<div id="sub_text"></div>
+<div id="sub_time"></div> -->
 
-<div id="subtitle">  </div>
+<!-- <div id="suball">  </div> -->
+<form action="/highlight/subtitle/makesubtitle" method = "POST" id = suball>
+    <!-- <input type="submit" value="확인" id = conformBtn> -->
+</form>
+
 
 <script>
-    //let sub_length = "{{sub_length}}"
-    //let sub_time = "{{sub_time}}"
-    //let sub_text = "{{sub_text}}"
-    //let sub_dict = "{{sub_dict}}"
+    let sub_index = "{{sub_index}}"
+    let sub_time = "{{sub_time}}"
+    let sub_text = "{{sub_text}}"
 
-    // sub_length = JSON.stringify(sub_length);
-    //alert(sub_length.length);
-    //alert(sub_time.length);
-    //alert(sub_text.length);
-
+    sub_index = sub_index.split(',')
+    sub_time = sub_time.split(',')
+    sub_text = sub_text.split(",")
     
 
-    //div만들기
-    // data = {'1': ['00:00:00-00:00:02','안녕하세요'],
-    //         '2': ['00:00:02-00:00:04','반갑습니다']};
+    let suball = document.getElementById('suball')
 
-    //for (var i in ){
-        // alert(data[key][0]);
-        //sub > button, div, input 
-      //  var sub = document.createElement('div');
-      //  sub.setAttribute('method', 'post');
-       // sub.setAttribute('id', 'sub'+key);
-        //sub.setAttribute('text', key);
-//        document.getElementById('subtitle').appendChild(sub);
+    var parser = new DOMParser;
+   
+    // div만들기
 
-        // var indexBtn = document.createElement('input');
-        // indexBtn.setAttribute('id', 'indexBtn'+key);
+    // var form = document.createElement('form');
+    //     form.setAttribute('method', 'post');
+    //     form.setAttribute('action', '/highlight/makesubtitle');
+
+    //     document.body.appendChild(suball);
+ 
+    for (var i=0; i<sub_index.length; i++){
+  
+       var sub = document.createElement('div');
+       sub.setAttribute('id', 'sub'+i);
+       sub.setAttribute('class', 'sub');
+        sub.setAttribute('text', sub_index[i]);
+       document.getElementById('suball').appendChild(sub);
+        
+        
+        //index
+        var domIndex = parser.parseFromString(
+            '<!doctype html><body>' + sub_index[i],
+            'text/html');
+        var decodedIndex = domIndex.body.textContent;
+        var decodedIndex = decodedIndex.replace("'", "").replace("[",'').replace(']','').replace("'",'');
+
+        var indexBtn = document.createElement('input'); 
+        indexBtn.setAttribute('id', 'indexBtn'+i);
+        indexBtn.setAttribute('class', 'indexBtn');
+        indexBtn.setAttribute('name', 'indexBtn'+i);
         // indexBtn.setAttribute('type', "submit");
-        // indexBtn.setAttribute('value', key);
-        // sub.appendChild(indexBtn);
+        indexBtn.setAttribute('value',decodedIndex);
+        sub.appendChild(indexBtn);
 
-        // var timeInput = document.createElement('input');
-        // timeInput.setAttribute('id', 'timeInput'+key);
-        // timeInput.setAttribute('value', data[key][0]);
-        // sub.appendChild(timeInput);
+        //time
+        var domTime = parser.parseFromString(
+            '<!doctype html><body>' + sub_time[i],
+            'text/html');
+        var decodedTime = domTime.body.textContent;
+        var decodedTime = decodedTime.replace("'", "").replace("[",'').replace(']','').replace("'",'');
 
-        // var ptag = document.createElement('p');
-        // sub.appendChild(ptag);
+        var timeInput = document.createElement('input');
+        timeInput.setAttribute('id', 'timeInput'+i);
+        timeInput.setAttribute('class', 'timeInput');
+        timeInput.setAttribute('name', 'timeInput'+i);
+        timeInput.setAttribute('value', decodedTime);
+        sub.appendChild(timeInput);
 
-        // var textArea = document.createElement('textarea');
-        // textArea.setAttribute('id', 'textArea'+key);
-        // textArea.setAttribute('name', 'textArea'+key);
-        // textArea.setAttribute('class', 'textArea');
-        // textArea.setAttribute('rows', '2');
-        // textArea.setAttribute('cols', '100');
-        // textArea.setAttribute('placeholder', data[key][1]);
-        // sub.appendChild(textArea);
+        //p
+        var ptag = document.createElement('p');
+        sub.appendChild(ptag);
 
-        // var textInput = document.createElement('input');
-        // textInput.setAttribute('id', 'textInput'+key);
-        // textInput.setAttribute('type', "button");
-        // textInput.setAttribute('value', '확인');
-        // sub.appendChild(textInput);
-//}; 
+        var domText = parser.parseFromString(
+            '<!doctype html><body>' + sub_text[i],
+            'text/html');
+        var decodedText = domText.body.textContent;
+        var decodedText = decodedText.replace("'", "").replace("[",'').replace(']','').replace("'",'');
+
+        //text
+        var textInput = document.createElement('input');
+        textInput.setAttribute('id', 'textInput'+i);
+        textInput.setAttribute('name', 'textInput'+i);
+        textInput.setAttribute('class', 'textInput');
+        // textInput.setAttribute('placeholder', decodedText);
+        textInput.setAttribute('value', decodedText);
+
+        sub.appendChild(textInput);
+
+        //p
+        var ptag = document.createElement('p');
+        suball.appendChild(ptag);
+}; 
+
+//submit <input type="submit" value="확인" id = conformBtn>
+var submitBtn = document.createElement('input');
+        submitBtn.setAttribute('type', 'submit');
+        submitBtn.setAttribute('class', 'submitBtn');
+        submitBtn.setAttribute('value', '확인');
+        suball.appendChild(submitBtn);
+
+// $('#conformBtn').on('click', function(){
+
+// })
 
         
 </script>
