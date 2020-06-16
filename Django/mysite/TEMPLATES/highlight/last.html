@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link rel="shortcut icon" href="../../static/images/icons/favicon.ico">
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/dot-luv/jquery-ui.css">
+    <style>
+        button{
+            width : 100px;
+            height: 50px;
+        }
+
+        .textInput{
+            width: 1000px;
+        }
+
+        .indexBtn{
+            width: 30px;
+            background-color: aqua;
+        }
+
+        .sub{
+            background: #ccc;
+            padding: 10px;
+            width: 1020px;
+            border-radius: 5px;
+        }
+        .timeInput{
+            width:200px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <video id="myVideo" controls  width="600" height="400" >
+        <!-- <source src="{% static 'highlight/test/video/'test_final.mp4}" type="video/mp4" /> -->
+        <source src="/static/highlight/test/video/test_final.mp4" type="video/mp4" />
+        
+        <!-- <source src="../static/highlight/test/video/test_final.webm" type="video/webM" /> -->
+        <!-- <source src="../static/highlight/test/video/test_final.ogv" type="video/ogg" /> -->
+        <p>Your browser does not support the video tag.</p>
+    </video>

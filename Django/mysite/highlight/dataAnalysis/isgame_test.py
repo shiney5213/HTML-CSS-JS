@@ -125,8 +125,12 @@ def gaming(filepath, model, pluscount):
 
     return dff
 
-def startgame(filepath, data_path, pluscount):
-    model = load_model('./static/highlighteditor/isgame.h5')
+def startgame(args):
+
+    filepath = args['video_root'] + args['filename']
+    data_path = args['data_root']
+    pluscount = args['pluscount']
+    model = load_model('./static/highlight/isgame.h5')
     print('model import success')
     # filepath = '/content/drive/My Drive/highlight/data/20200508_Faker_614572048.mp4'
     print(filepath, os.path.isfile(filepath))

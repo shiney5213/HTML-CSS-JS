@@ -17,7 +17,7 @@ from keras.models import load_model
 
 # data
 
-def delta(data, data_path):
+def delta(args, data):
     # print(data.columns)
     # print(data.index)
     df = data
@@ -52,7 +52,7 @@ def delta(data, data_path):
     df['demo'] = df.iloc[:,3:11].sum(axis=1)
     df.dropna(inplace=True)
 
-    save_path = data_path + '/kda.csv'
+    save_path =args['data_root'] + '/kda.csv'
     print(save_path)
     df.to_csv(save_path)
     pltx = 900/72
@@ -71,7 +71,7 @@ def delta(data, data_path):
         plt.draw()
         fig = plt.gcf()
 
-        img_name = f'{data_path}/{i}.png'
+        img_name = args['data_root'] +f'{i}.png'
         print('save', img_name)
         fig.savefig(img_name, dpi = fig.dpi,  bbox_inches='tight')
 

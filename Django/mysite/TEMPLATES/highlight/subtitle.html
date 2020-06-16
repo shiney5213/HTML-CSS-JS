@@ -24,7 +24,7 @@
             background-color: aqua;
         }
 
-        .sub{
+        .subDiv{
             background: #ccc;
             padding: 10px;
             width: 1020px;
@@ -39,11 +39,12 @@
 </head>
 <body>
     <video id="myVideo" controls  width="600" height="400" >
-        <source src="../static/highlight/test_title.mp4" type="video/mp4" />
-        <source src="../static/highlight/test_title.webm" type="video/webM" />
-        <source src="../static/highlight/test_title.ogv" type="video/ogg" />
+        <source src="../static/highlight/test/video/test_2.mp4" type="video/mp4" />
+        <source src="../static/highlight/test/video/test_2.webm" type="video/webM" />
+        <source src="../static/highlight/test/video/test_2.ogv" type="video/ogg" />
         <p>Your browser does not support the video tag.</p>
     </video>
+    <div class="current_time"></div>
 
 <!-- <h2 id = "title"></h2> -->
 <!-- <h2>{{sub_list}}</h2>-->
@@ -56,7 +57,6 @@
     <!-- <input type="submit" value="확인" id = conformBtn> -->
 </form>
 
-
 <script>
     let sub_index = "{{sub_index}}"
     let sub_time = "{{sub_time}}"
@@ -65,28 +65,68 @@
     sub_index = sub_index.split(',')
     sub_time = sub_time.split(',')
     sub_text = sub_text.split(",")
-    
 
+    var video = $('#myVideo')
+
+    
     let suball = document.getElementById('suball')
 
     var parser = new DOMParser;
    
-    // div만들기
+    video.on('loadedmetadata', function() {
+        // maxduration = video2[0].duration;
+        //$(".current_time").text(video.currentTime.toFixed(2));
+        $(".current_time").text(video.currentTime);
 
-    // var form = document.createElement('form');
-    //     form.setAttribute('method', 'post');
-    //     form.setAttribute('action', '/highlight/makesubtitle');
+        // $('.current').text(video.currentTime);
+    });
 
-    //     document.body.appendChild(suball);
- 
+    //$(".current_time").text(video.currentTime.toFixed(2));
+
+    function calc(event) {
+        // btn = event.target || event.srcElement;
+        // alert(btn)
+        var IndexbtnId = event.id;
+        var IndexbtnValue = event.value;
+
+        // alert(IndexbtnValue);
+        $.ajax({url: '', 
+				type: 'POST',
+				data: {'index': IndexbtnValue
+				}
+			})
+			.done(function(response){
+                // alert(response);
+                var playtime = response.startTime;
+                //var video = $('#myVideo')
+
+                alert(playtime)
+				video.currentTime = Number(playtime);
+
+            });
+    };
+
+
     for (var i=0; i<sub_index.length; i++){
-  
-       var sub = document.createElement('div');
-       sub.setAttribute('id', 'sub'+i);
-       sub.setAttribute('class', 'sub');
-        sub.setAttribute('text', sub_index[i]);
-       document.getElementById('suball').appendChild(sub);
-        
+
+        //div
+       var subDiv = document.createElement('div');
+       subDiv.setAttribute('id', 'subDiv'+i);
+       subDiv.setAttribute('class', 'subDiv');
+       subDiv.setAttribute('text', sub_index[i]);
+       document.getElementById('suball').appendChild(subDiv);
+
+        //form
+        // var subform = document.createElement('form');
+        // subform.setAttribute('method', 'POST');
+        // // subform.setAttribute('type', 'submit');
+        // subform.setAttribute('name', 'subform'+i);
+        // subform.setAttribute('class', 'subform');
+        // subform.setAttribute('id', 'subform'+i);
+		// subform.setAttribute('action', '');
+
+        // subDiv.append(subform)
+
         
         //index
         var domIndex = parser.parseFromString(
@@ -98,10 +138,12 @@
         var indexBtn = document.createElement('input'); 
         indexBtn.setAttribute('id', 'indexBtn'+i);
         indexBtn.setAttribute('class', 'indexBtn');
+        // indexBtn.setAttribute('type', 'submit');
         indexBtn.setAttribute('name', 'indexBtn'+i);
-        // indexBtn.setAttribute('type', "submit");
+        indexBtn.setAttribute('type', "button");
         indexBtn.setAttribute('value',decodedIndex);
-        sub.appendChild(indexBtn);
+        indexBtn.setAttribute('onclick', "calc(this)");
+        subDiv.appendChild(indexBtn);
 
         //time
         var domTime = parser.parseFromString(
@@ -115,11 +157,11 @@
         timeInput.setAttribute('class', 'timeInput');
         timeInput.setAttribute('name', 'timeInput'+i);
         timeInput.setAttribute('value', decodedTime);
-        sub.appendChild(timeInput);
+        subDiv.appendChild(timeInput);
 
         //p
         var ptag = document.createElement('p');
-        sub.appendChild(ptag);
+        subDiv.appendChild(ptag);
 
         var domText = parser.parseFromString(
             '<!doctype html><body>' + sub_text[i],
@@ -135,7 +177,7 @@
         // textInput.setAttribute('placeholder', decodedText);
         textInput.setAttribute('value', decodedText);
 
-        sub.appendChild(textInput);
+        subDiv.appendChild(textInput);
 
         //p
         var ptag = document.createElement('p');

@@ -7,8 +7,6 @@ def crop(args, save_start, save_end):
     filename = args['filename']
     crop_filename = filename.replace('.mp4', '_2.mp4')
 
-    # old_path = settings.BASE_DIR + f'/static/highlighteditor/save/{filename}'
-    # new_path = settings.BASE_DIR + f'/static/highlighteditor/save/{crop_filename}'
 
     old_path = args['video_root'] + filename
     new_path = args['video_root'] + crop_filename

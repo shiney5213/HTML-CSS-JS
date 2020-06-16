@@ -14,10 +14,6 @@ import moviepy.editor as mp
 import os
 
 
-# Sound --> Data(Please read the first paragragh above for running this operation)
-AudioSegment.converter = "C:/Program Files/ffmpeg-20200515-b18fd2b-win64-static/bin/ffmpeg.exe"
-AudioSegment.ffmpeg = "C:/Program Files/ffmpeg-20200515-b12b053-win64-static/bin/ffmpeg.exe"
-AudioSegment.ffprobe = "C:/Program Files/ffmpeg-20200515-b12b053-win64-static/bin/ffprobe.exe"
 
 
 # Transforming time
@@ -65,6 +61,16 @@ def sec_time(sec):
 
 
 def sound_info(file_name, starttime, endtime):
+    # Sound --> Data(Please read the first paragragh above for running this operation)
+    AudioSegment.converter = "C:/Program Files/ffmpeg-20200515-b18fd2b-win64-static/bin/ffmpeg.exe"
+    AudioSegment.ffmpeg = "C:/Program Files/ffmpeg-20200515-b12b053-win64-static/bin/ffmpeg.exe"
+    AudioSegment.ffprobe = "C:/Program Files/ffmpeg-20200515-b12b053-win64-static/bin/ffprobe.exe"
+
+# sound data
+    # AudioSegment.converter = "./static/highlight/ffmpeg-20200513-b12b053-win64-static/bin/ffmpeg.exe"
+    # AudioSegment.ffmpeg = "./static/highlight/ffmpeg-20200515-b12b053-win64-static/bin/ffmpeg.exe"
+    # AudioSegment.ffprobe = "./static/highlight/ffmpeg-20200515-b12b053-win64-static/bin/ffprobe.exe"
+
     raw_sound = file_name
     sound = AudioSegment.from_file(raw_sound)
     List = []
@@ -77,8 +83,11 @@ def sound_info(file_name, starttime, endtime):
     print("가장 큰 db : ", max(List))
     print("영상 음성 길이 : ", len(sound))
 
-def sound2data(file_name, starttime, endtime):  # file_name은 디렉토리까지 확실히 표현할 것!
-    raw_sound = file_name
+def sound2data(audiofilepath, starttime, endtime):  # file_name은 디렉토리까지 확실히 표현할 것!
+    raw_sound = audiofilepath
+    print(raw_sound)
+    print(os.path.isfile(raw_sound))
+    
     sound = AudioSegment.from_file(raw_sound)
     List = []
     for i in range(int(len(sound) / 1000)):
@@ -108,7 +117,7 @@ def detect_text(photo, args):
     top = 0
     width = 0.34
 
-    response = client.detect_text(Image={'S3Object': {'Bucket': args['bucket_name'], 'Name': photo}},
+    response = client.detect_text(Image={'S3Object': {'Bucket': args['bucket'], 'Name': photo}},
                                   Filters={'RegionsOfInterest': [
                                       {'BoundingBox': {'Height': height, 'Left': left, 'Top': top, 'Width': width}}]})
 
@@ -135,7 +144,7 @@ def detect_faces(photo, args):
                           region_name=args['AWS_DEFAULT_REGION']
                           )
 
-    response = client.detect_faces(Image={'S3Object': {'Bucket': args['bucket_name'], 'Name': photo}}, Attributes=['ALL'])
+    response = client.detect_faces(Image={'S3Object': {'Bucket': args['bucket'], 'Name': photo}}, Attributes=['ALL'])
     try:
         emotions = response['FaceDetails'][0]['Emotions']
 
@@ -171,8 +180,8 @@ def makeimage(frame):
 
 # Processing a dynamic image.(Using detect_text, detect_faces)
 # 영상 1초단위로 쪼개고 버켓에 업로드
-def process(args):
-    file =  args['filename']
+def process(args, starttime, endtime):
+    file =  args['video_root'] + args['filename']
 
     s3 = boto3.client('s3',
                     aws_access_key_id=args['AWS_ACCESS_KEY_ID'],
@@ -188,8 +197,8 @@ def process(args):
     # print('file_path', file_path)
     cap = cv2.VideoCapture(file)
 
-    starttime = args['starttime']
-    endtime = args['endtime']
+    # starttime = args['starttime']
+    # endtime = args['endtime']
 
     timemsec = time_msec(starttime)
     cap.set(cv2.CAP_PROP_POS_MSEC, timemsec)
@@ -213,7 +222,7 @@ def process(args):
 
             # 사진 파일 bucket에 저장
             with open(f'{img_root}/{fn}', 'rb') as f:
-                s3.upload_fileobj(f, args['bucket_name'], fn)
+                s3.upload_fileobj(f, args['bucket'], fn)
 
             # OCR face API 사용
             photo = fn
@@ -237,17 +246,21 @@ def process(args):
             break
     return datalist
 
-def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Faker_612874923.mp4' ):
-
+def main(args, starttime ='01:00:00' , endtime =  '01:01:00' ):
+    
     
      # 폴더 만들기
-    make_dir = filename.replace('.mp4', '')               
+    make_dir = args['dirname']        
 
 
-    audio_root =f"./static/highlighteditor/{make_dir}/audio/" 
-    data_root = f"./static/highlighteditor/{make_dir}/data/" 
-    image_root =f"./static/highlighteditor/{make_dir}/image/" 
-    video_root =f"./static/highlighteditor/{make_dir}/video/" 
+    # audio_root =f"./static/highlighteditor/{make_dir}/audio/" 
+    # data_root = f"./static/highlighteditor/{make_dir}/data/" 
+    # image_root =f"./static/highlighteditor/{make_dir}/image/" 
+    # video_root =f"./static/highlighteditor/{make_dir}/video/" 
+    audio_root = args['audio_root']
+    data_root =  args['data_root']
+    image_root = args['image_root']
+    video_root = args['video_root']
 
     try:
         os.makedirs(audio_root)
@@ -264,8 +277,8 @@ def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Fak
     
     alltime_list = [[[str(starttime), str(endtime) ]]]
 
-    file_name_mp4 = filename
-    file_name_mp3 = file_name_mp4.replace('mp4', 'mp3')
+    file_name_mp4 = args['filename']
+    file_name_mp3 = args['audio_file']
     file_mp4 = video_root + file_name_mp4
     file_mp3 = audio_root + file_name_mp3
 
@@ -274,21 +287,7 @@ def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Fak
     
 
 
-    args = {'filename': file_mp4,
-            'starttime': starttime,
-            'endtime': endtime,
-            'image_root': image_root,
-            'AWS_ACCESS_KEY_ID' : 'AKIAS3UCLIDDHDXHMWOZ',
-            'AWS_SECRET_ACCESS_KEY' : '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',
-            'AWS_DEFAULT_REGION' : 'ap-northeast-2',
-            'bucket_name' : 'eyshin',
-            'image_root': image_root,
-            'video_root': video_root,
-            'data_root': data_root,
-            'audio_root': audio_root,
-            }
-
-    datalist = process(args)
+    datalist = process(args, starttime,endtime)
     print('datalist',len(datalist))
     with open(data_root + 'datalist.txt', 'wb') as f:
         pickle.dump(datalist, f)
@@ -323,6 +322,7 @@ def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Fak
             continue
 
     df = pd.DataFrame(dlist)
+    print(df)
 
     # kda 나누기
     df['k']=df[2].str.split('/').str[0]
@@ -356,15 +356,11 @@ def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Fak
     dff['sup'] = df[10]
     dff['conf'] = df[11]
 
-    # sound data
-    AudioSegment.converter = "./static/highlight/ffmpeg-20200513-b12b053-win64-static/bin/ffmpeg.exe"
-    AudioSegment.ffmpeg = "./static/highlight/ffmpeg-20200515-b12b053-win64-static/bin/ffmpeg.exe"
-    AudioSegment.ffprobe = "./static/highlight/ffmpeg-20200515-b12b053-win64-static/bin/ffprobe.exe"
+    
 
-
-    file2_name = filename.replace('mp4', 'mp3')
-    file2 = args['audio_root'] + file2_name
-    sound = sound2data(file2, starttime, endtime)
+    # file2_name = filename.replace('mp4', 'mp3')
+    audiofilepath = args['audio_root'] + args['audio_file']
+    sound = sound2data(audiofilepath, starttime, endtime)
     dff=pd.merge(dff, sound, how='left', on='time')
     
     # dff.to_excel(data_root + 'dff.xlsx')
@@ -374,8 +370,10 @@ def main(starttime ='01:00:00' , endtime =  '01:01:00', filename = '20200506_Fak
 
     # with open(data_root + 'dff.txt', 'rb') as f:
     #     dff = pickle.load(f)
+    preprocessing_file = args['data_root']+'preprocessing.csv'
 
-    dff.to_csv(data_root + 'preprocessing.csv', index = False)
+    dff.to_csv(preprocessing_file, index = False)
+    print('preprocessing_file save success')
 
 
     return dff

@@ -13,7 +13,7 @@ from moviepy.video.tools.subtitles import SubtitlesClip, TextClip
 from time import gmtime, strftime
 import numpy as np
 
-def upload_file(args,crop_filename, object_name=None):
+def upload_file(audio_file, args,  object_name=None):
     #upload file in s3
     """Upload a file to an S3 bucket
 
@@ -22,10 +22,10 @@ def upload_file(args,crop_filename, object_name=None):
     :param object_name: S3 object name. If not specified then file_name is used
     :return: True if file was uploaded, else False
     """
-    audio_file = args['audio_file']
+    # audio_file = args['audio_file']
     bucket = args['bucket']
-    file_name = args['video_root']+crop_filename
-    job_name = args['job_name']
+    file_name = args['audio_root']+args['audio_file']
+    # job_name = args['job_name']
 
     # If S3 object_name was not specified, use file_name
     if object_name is None:
@@ -49,6 +49,7 @@ def createTranscribeJob(args, mediaUri, mediaFile):
     job_name = args['job_name'] 
     region  = args['region'] 
     bucket = args['bucket'] 
+    print('mediaUri',mediaUri)
 
     # Set up the Transcribe client 
     transcribe = boto3.client('transcribe',
@@ -200,59 +201,86 @@ def getPhraseText( phrase ):
 	    
 
 def startSTT(args, crop_filename):
-
-    MediaFormat  = 'mp3'
-    mediaUri = f"s3://eyshin/{args['audio_file']}"
-    mediaFile = args['dirname']
+    s3 = boto3.resource('s3')
     
+ 
+    
+    audio_file = args['audio_root'] + args['audio_file']
+    print('audio_file is', os.path.isfile(audio_file))
     ### upload file s3
-    # upload_result = upload_file(args,crop_filename, object_name=None)
-    # print(upload_result)
+    upload_result = upload_file(audio_file, args, object_name=None)
+    print('upload', upload_result)
 
     ### transcibe in AWS
-    # status = createTranscribeJob(args, mediaUri, mediaFile)
+    MediaFormat  = 'mp3'
+    # # mediaUri = f"s3://eyshin/{args['audio_file']}"
+    mediaUri = f"s3://eyshin/{audio_file}"
+    mediaFile = 'test_audio'
 
-    # if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
-    #     ### get transcript result in asw Uri
-    #     transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
-    #     ### transcript result
-    #     transcript = getTranscript(str(transcript_Uri))
+    # mediaFile = args['dirname']
 
-    #     ### save src file
-    #     subtitles_file = args['video_root']+args['subtitles_file']
-    #     print('subpath', subtitles_file)
-    #     transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
-    #     # print(transcript_dict)
+    ### resl
+    status = createTranscribeJob( args, mediaUri, mediaFile)
+    if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
+        ### get transcript result in asw Uri
+        transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
+        ### transcript result
+        transcript = getTranscript(str(transcript_Uri))
 
-    #     with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
-    #         data = f.read()
+        ### save src file
+        subtitles_file = args['video_root']+args['subtitles_file']
+        print('subpath', subtitles_file)
+        transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
+        # print(transcript_dict)
+
+        with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
+            subtitle = f.read()
+
+        subtitle = subtitle.replace("'", '')
+        subtitle_list = subtitle.split('\n\n')
+        print(len(subtitle_list))
+
+        sub1 = []
+        for sub in subtitle_list:
+            if sub !='' :
+                sub1.append(sub.split('\n'))
+        print('sub1', sub1, len(sub1))
+
+        sub_index = []
+        sub_time = []
+        sub_text = []
+
+        for (index, time, text) in sub1:
+            sub_index.append(index)
+            sub_time.append(time.replace(',','.'))
+            sub_text.append(text.replace(',','.'))
 
 
     ###test
-    subtitles_file = args['video_root']+args['subtitles_file']
-    with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
-        subtitle = f.read()
+    # subtitles_file = args['video_root']+args['subtitles_file']
+    # with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
+    #     subtitle = f.read()
 
-    subtitle = subtitle.replace("'", '')
-    subtitle_list = subtitle.split('\n\n')
-    print(len(subtitle_list))
+    # subtitle = subtitle.replace("'", '')
+    # subtitle_list = subtitle.split('\n\n')
+    # print(len(subtitle_list))
 
-    sub1 = []
-    for sub in subtitle_list:
-        if sub !='' :
-            sub1.append(sub.split('\n'))
-    print('sub1', sub1, len(sub1))
+    # sub1 = []
+    # for sub in subtitle_list:
+    #     if sub !='' :
+    #         sub1.append(sub.split('\n'))
+    # print('sub1', sub1, len(sub1))
 
-    sub_index = []
-    sub_time = []
-    sub_text = []
+    # sub_index = []
+    # sub_time = []
+    # sub_text = []
 
-    for (index, time, text) in sub1:
-        sub_index.append(index)
-        sub_time.append(time.replace(',','.'))
-        sub_text.append(text.replace(',','.'))
+    # for (index, time, text) in sub1:
+    #     sub_index.append(index)
+    #     sub_time.append(time.replace(',','.'))
+    #     sub_text.append(text.replace(',','.'))
 
-    # print(len(sub_text), sub_text)
+    print(len(sub_text), sub_text)
     return sub_index, sub_time, sub_text
 
 

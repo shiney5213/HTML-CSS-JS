@@ -14,13 +14,13 @@ from time import gmtime, strftime
 import numpy as np
 global infile
 
-def saveSrt(args, index_dict,time_dict,text_dict):
+def saveSrt(args,time_dict,text_dict):
     
     final_sub = []
     for i in range(1,len(index_dict)+1):
         row = []
-        for index, time, text in zip(index_dict.values(), time_dict.values(), text_dict.values()):
-            row.append(index)
+        for index, time, text in zip( time_dict.values(), text_dict.values()):
+            row.append(i)
             row.append(time)
             row.append(text)
         row_final = '\\n'.join(row)
@@ -250,7 +250,7 @@ def createVideo( originalClipName, subtitlesFileName, outputFileName, alternateA
 	print( "\t" + strftime( "%H:%M:%S", gmtime()), "Writing video file: " + outputFileName )
 	final.write_videofile(outputFileName)
 
-def annotate(clip, txt, txt_color='white', fontsize=24, font='MDotum'):
+def annotate(clip, txt, txt_color='white', fontsize=40, font='MDotum'):
     # Writes a text at the bottom of the clip  'Xolonium-Bold'
     txtclip = editor.TextClip(txt, fontsize=fontsize, font=font, color=txt_color).on_color(color=[0,0,0])
     cvc = editor.CompositeVideoClip([clip, txtclip.set_pos(('center', 50))])

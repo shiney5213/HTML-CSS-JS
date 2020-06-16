@@ -4,9 +4,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def modelpre( ddf, filename, data_path):
+def modelpre( args, ddf,):
     # 모델 경로
-    model = load_model('./static/highlighteditor/highlight_3.h5')
+    filename = args['filename']
+    data_path = args['data_root']
+    model = load_model('./static/highlight/highlight_3.h5')
     print(model)
     # 인풋값 경로
     # df = pd.read_excel('/content/drive/My Drive/highlight/송호성의 방/hl/20200506_Faker_612874923.mp4_5.xlsx')
