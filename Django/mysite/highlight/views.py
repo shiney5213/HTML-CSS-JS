@@ -18,24 +18,28 @@ from .dataAnalysis import modelpredict
 from .dataAnalysis import isgame_test
 from .dataAnalysis import usingdata
 from .dataAnalysis import audio2text
-from .dataAnalysis import cropVideo, makeVideo
+from .dataAnalysis import cropVideo, makeVideo, output
 import datetime, random
+
 
 
 # Create your views here.
 global flag, sub_time, filename, base_root, pluscount, dirname, args, audio_file
 
+job_name = 'hi_25'
 # flag = 'test'
-# job_name = 'hi_23'
+flag = 'real'
+
+
 
 # filename = 'test30m.mp4'
 # pluscount  = 18000
-# filename = 'test.mp4'
-# pluscount = 1000
+filename = 'test.mp4'
+pluscount = 1000
 # filename = 'test10m.mp4'
 # pluscount = 10000
-filename = 'test3h.mp4'
-pluscount = 18000
+# filename = 'test3h.mp4'
+# pluscount = 18000
 
 
 dirname = filename.replace('.mp4', '')
@@ -44,7 +48,7 @@ if flag == 'test':
     crop_filename = filename 
     audio_file = crop_filename.replace('mp4', 'mp3')
 else:
-    crop_filename = f'{dirname}_2.mp4',
+    crop_filename = f'{dirname}_2.mp4'
     audio_file = crop_filename.replace('mp4', 'mp3')
 
 
@@ -112,13 +116,17 @@ def analysis(request):
         a_data = [random.random() for i in range(int(analysis_time))]
     else: 
         ddf = preprocessing.main(args, analysisstarttime, analysisendtime)
-        result = modelpredict.modelpre( args, ddf)
-        rate_list = result['probability'].tolist()
-        highlight_rate = [0]*(20+int(float(analysis_start))) + rate_list
-        all, k_data, d_data, a_data = usingdata.delta(args, ddf)
-        k_data = k_data.tolist()
-        d_data = d_data.tolist()
-        a_data = a_data.tolist()
+        # result = modelpredict.modelpre( args, ddf)
+        # rate_list = result['probability'].tolist()
+        # highlight_rate = [0]*(20+int(float(analysis_start))) + rate_list
+        # all, k_data, d_data, a_data = usingdata.delta(args, ddf)
+        # k_data = k_data.tolist()
+        # d_data = d_data.tolist()
+        # a_data = a_data.tolist()
+
+
+        highlight_rate, k_data, d_data, a_data = output.output(args, ddf)
+
 
     time_data2 = [ i for i in range(analysis_time)]
 
