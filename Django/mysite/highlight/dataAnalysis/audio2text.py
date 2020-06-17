@@ -219,20 +219,8 @@ def startSTT(args, crop_filename):
 
     # mediaFile = args['dirname']
 
-    ### resl
-    status = createTranscribeJob( args, mediaUri, mediaFile)
-    if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
-        ### get transcript result in asw Uri
-        transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
-        ### transcript result
-        transcript = getTranscript(str(transcript_Uri))
-
-        ### save src file
+    if args['flag']=='test':
         subtitles_file = args['video_root']+args['subtitles_file']
-        print('subpath', subtitles_file)
-        transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
-        # print(transcript_dict)
-
         with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
             subtitle = f.read()
 
@@ -255,30 +243,41 @@ def startSTT(args, crop_filename):
             sub_time.append(time.replace(',','.'))
             sub_text.append(text.replace(',','.'))
 
+    else:
+        status = createTranscribeJob( args, mediaUri, mediaFile)
+        if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
+            ### get transcript result in asw Uri
+            transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
+            ### transcript result
+            transcript = getTranscript(str(transcript_Uri))
 
-    ###test
-    # subtitles_file = args['video_root']+args['subtitles_file']
-    # with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
-    #     subtitle = f.read()
+            ### save src file
+            subtitles_file = args['video_root']+args['subtitles_file']
+            print('subpath', subtitles_file)
+            transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
+            # print(transcript_dict)
 
-    # subtitle = subtitle.replace("'", '')
-    # subtitle_list = subtitle.split('\n\n')
-    # print(len(subtitle_list))
+            with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
+                subtitle = f.read()
 
-    # sub1 = []
-    # for sub in subtitle_list:
-    #     if sub !='' :
-    #         sub1.append(sub.split('\n'))
-    # print('sub1', sub1, len(sub1))
+            subtitle = subtitle.replace("'", '')
+            subtitle_list = subtitle.split('\n\n')
+            print(len(subtitle_list))
 
-    # sub_index = []
-    # sub_time = []
-    # sub_text = []
+            sub1 = []
+            for sub in subtitle_list:
+                if sub !='' :
+                    sub1.append(sub.split('\n'))
+            print('sub1', sub1, len(sub1))
 
-    # for (index, time, text) in sub1:
-    #     sub_index.append(index)
-    #     sub_time.append(time.replace(',','.'))
-    #     sub_text.append(text.replace(',','.'))
+            sub_index = []
+            sub_time = []
+            sub_text = []
+
+            for (index, time, text) in sub1:
+                sub_index.append(index)
+                sub_time.append(time.replace(',','.'))
+                sub_text.append(text.replace(',','.'))
 
     print(len(sub_text), sub_text)
     return sub_index, sub_time, sub_text

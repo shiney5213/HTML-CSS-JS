@@ -17,15 +17,17 @@ global infile
 def saveSrt(args,time_dict,text_dict):
     
     final_sub = []
-    for i in range(1,len(index_dict)+1):
+    for i in range(1,len(time_dict)+1):
         row = []
-        for index, time, text in zip( time_dict.values(), text_dict.values()):
-            row.append(i)
+        for  time, text in zip( time_dict.values(), text_dict.values()):
+            row.append(str(i))
             row.append(time)
             row.append(text)
-        row_final = '\\n'.join(row)
+            print('row',row)
+            row_final = '\\n'.join(row)
     final_sub.append(row_final)
     final_subtitle = '\\n\\n'.join(final_sub)
+    print('final_subtitle',final_subtitle)
 
     print(final_subtitle)
 
@@ -79,8 +81,9 @@ class SubtitlesClip2(VideoClip):
 
         if make_textclip is None:
             make_textclip = lambda txt: TextClip(txt, font='MDotum',
-                                        fontsize=24, color='white',
-                                        stroke_color='black', stroke_width=0.5)
+                                        fontsize=30, color='white',
+                                        stroke_color='black', 
+                                        stroke_width=0.5,)
 
         self.make_textclip = make_textclip
         self.start=0
@@ -222,7 +225,7 @@ def createVideo( originalClipName, subtitlesFileName, outputFileName, alternateA
 		
 	# Create a lambda function that will be used to generate the subtitles for each sequence in the SRT
 # 	generator = lambda txt: TextClip(txt, font='Arial-Bold', fontsize=24, color='white')
-	generator = lambda txt: TextClip(txt, font='MDotum', fontsize=24, color='white')
+	generator = lambda txt: TextClip(txt, font='MDotum', fontsize=30, color='white')
 
 	# read in the subtitles files
 	print( "\t" + strftime("%H:%M:%S", gmtime()), "Reading subtitle file: " + subtitlesFileName )
@@ -250,7 +253,7 @@ def createVideo( originalClipName, subtitlesFileName, outputFileName, alternateA
 	print( "\t" + strftime( "%H:%M:%S", gmtime()), "Writing video file: " + outputFileName )
 	final.write_videofile(outputFileName)
 
-def annotate(clip, txt, txt_color='white', fontsize=40, font='MDotum'):
+def annotate(clip, txt, txt_color='white', fontsize=30, font='MDotum'):
     # Writes a text at the bottom of the clip  'Xolonium-Bold'
     txtclip = editor.TextClip(txt, fontsize=fontsize, font=font, color=txt_color).on_color(color=[0,0,0])
     cvc = editor.CompositeVideoClip([clip, txtclip.set_pos(('center', 50))])

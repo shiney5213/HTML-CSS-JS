@@ -21,30 +21,46 @@
 
         .indexBtn{
             width: 30px;
-            background-color: aqua;
+            background-color: #3FB8AF;
         }
 
         .subDiv{
             background: #ccc;
             padding: 10px;
-            width: 1020px;
-            border-radius: 5px;
+            /* width: 1020px; */
+            /* border-radius: 5px; */
         }
         .timeInput{
             width:200px;
         }
+
+        #myVideo{
+            /* transform: translateX(50%); */
+            float: left;
+            padding-left: 20px;
+        }
+        form{
+            float:right;
+            padding-right: 20px;
+            padding-top: 50px;
+        }
+        .current_time{
+            position: relative;
+        }
+
     </style>
 
 
 </head>
 <body>
-    <video id="myVideo" controls  width="600" height="400" >
+    <video id="myVideo" controls  width="800" height="550" autoplay controls >
         <source src="../static/highlight/test/video/test_2.mp4" type="video/mp4" />
         <source src="../static/highlight/test/video/test_2.webm" type="video/webM" />
         <source src="../static/highlight/test/video/test_2.ogv" type="video/ogg" />
         <p>Your browser does not support the video tag.</p>
     </video>
-    <div class="current_time"></div>
+    <!-- <div id="currentTime" class="current_time">00:00</div> -->
+
 
 <!-- <h2 id = "title"></h2> -->
 <!-- <h2>{{sub_list}}</h2>-->
@@ -58,6 +74,9 @@
 </form>
 
 <script>
+    var timeCurrent = document.getElementById("currentTime");
+    //현재재생시간
+    
     let sub_index = "{{sub_index}}"
     let sub_time = "{{sub_time}}"
     let sub_text = "{{sub_text}}"
@@ -68,28 +87,15 @@
 
     var video = $('#myVideo')
 
-    
     let suball = document.getElementById('suball')
 
     var parser = new DOMParser;
+    // var playtime= null;
    
-    video.on('loadedmetadata', function() {
-        // maxduration = video2[0].duration;
-        //$(".current_time").text(video.currentTime.toFixed(2));
-        $(".current_time").text(video.currentTime);
-
-        // $('.current').text(video.currentTime);
-    });
-
-    //$(".current_time").text(video.currentTime.toFixed(2));
 
     function calc(event) {
-        // btn = event.target || event.srcElement;
-        // alert(btn)
         var IndexbtnId = event.id;
         var IndexbtnValue = event.value;
-
-        // alert(IndexbtnValue);
         $.ajax({url: '', 
 				type: 'POST',
 				data: {'index': IndexbtnValue
@@ -101,8 +107,10 @@
                 //var video = $('#myVideo')
 
                 alert(playtime)
-				video.currentTime = Number(playtime);
-
+                console.log(playtime);
+                video[0].currentTime = parseFloat(playtime);
+                video[0].play();
+                timeCurrent.text(playtime);
             });
     };
 

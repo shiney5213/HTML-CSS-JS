@@ -25,23 +25,24 @@ import datetime, random
 # Create your views here.
 global flag, sub_time, filename, base_root, pluscount, dirname, args, audio_file
 
-flag = 0
-job_name = 'hi_20'
+# flag = 'test'
+# job_name = 'hi_23'
 
-filename = 'test30m.mp4'
-pluscount  = 18000
+# filename = 'test30m.mp4'
+# pluscount  = 18000
 # filename = 'test.mp4'
 # pluscount = 1000
 # filename = 'test10m.mp4'
 # pluscount = 10000
+filename = 'test3h.mp4'
+pluscount = 18000
 
 
 dirname = filename.replace('.mp4', '')
 
-if flag == 0:
+if flag == 'test':
     crop_filename = filename 
     audio_file = crop_filename.replace('mp4', 'mp3')
-
 else:
     crop_filename = f'{dirname}_2.mp4',
     audio_file = crop_filename.replace('mp4', 'mp3')
@@ -53,6 +54,7 @@ audio_file = filename.replace('mp4', 'mp3')
 
 
 args = {
+        'flag': flag,
         'filename': filename,
         'crop_filename': crop_filename,
         
@@ -102,22 +104,21 @@ def analysis(request):
     print('시간 ', analysisstarttime, analysisendtime)
 
 
-    # test
-    # highlight_rate = [random.random() for i in range(int(analysis_time))]
-    # d_data = [random.random() for i in range(int(analysis_time))]
-    # k_data = [random.random() for i in range(int(analysis_time))]
-    # a_data = [random.random() for i in range(int(analysis_time))]
-    
-
-    #real 
-    ddf = preprocessing.main(args, analysisstarttime, analysisendtime)
-    result = modelpredict.modelpre( args, ddf)
-    rate_list = result['probability'].tolist()
-    highlight_rate = [0]*(20+int(float(analysis_start))) + rate_list
-    all, k_data, d_data, a_data = usingdata.delta(args, ddf)
-    k_data = k_data.tolist()
-    d_data = d_data.tolist()
-    a_data = a_data.tolist()
+    #  search highlgith 
+    if args['flag'] =='test':
+        highlight_rate = [random.random() for i in range(int(analysis_time))]
+        d_data = [random.random() for i in range(int(analysis_time))]
+        k_data = [random.random() for i in range(int(analysis_time))]
+        a_data = [random.random() for i in range(int(analysis_time))]
+    else: 
+        ddf = preprocessing.main(args, analysisstarttime, analysisendtime)
+        result = modelpredict.modelpre( args, ddf)
+        rate_list = result['probability'].tolist()
+        highlight_rate = [0]*(20+int(float(analysis_start))) + rate_list
+        all, k_data, d_data, a_data = usingdata.delta(args, ddf)
+        k_data = k_data.tolist()
+        d_data = d_data.tolist()
+        a_data = a_data.tolist()
 
     time_data2 = [ i for i in range(analysis_time)]
 
@@ -138,7 +139,9 @@ class highlightView(View):
         return super(highlightView, self).dispatch(*args, **kwargs)
 
     def get(self, request):
-        return render(request, 'highlight/8.index_slider.html')
+        return render(request, 'highlight/hilight_index.html')
+        # return render(request, 'highlight/8.index_slider.html')
+
 
     def post(self, request):
         #video save
@@ -183,7 +186,7 @@ class highlightView(View):
             filename = request.POST['filename']
         # context= {'filename': filename, 'dirname': make_dir}
         context= {'data': filename}
-        time.sleep(3)
+        time.sleep(2)
         
         return redirect('', context)
         
@@ -192,26 +195,23 @@ def savevideo(request):
     global filename
     print('key',request.POST.keys())
 
-
     save_start = request.POST.get('save_start', '')
     save_end =request.POST.get('save_end', '')
     
     print('start', save_start)
     print('end', save_end)
 
-    # crop 처리
-    crop_filename = filename.replace('.mp4', '_2.mp4')
+    # crop video
+    print('flag', args['flag'])
+    if args['flag'] != 'test':
+        old_path = args['video_root'] + args['filename']
+        new_path = args['video_root'] + args['crop_filename']
 
-    old_path = settings.BASE_DIR + f'/static/highlighteditor/save/{filename}'
-    new_path = settings.BASE_DIR + f'/static/highlighteditor/save/{crop_filename}'
-    # shutil.copy(old_path, new_path)
+        clip = VideoFileClip(old_path).subclip(float(save_start), float(save_end))
+        clip.write_videofile(new_path)
 
-  
-    clip = VideoFileClip(old_path).subclip(float(save_start), float(save_end))
-    clip.write_videofile(new_path)
-
-    context = {'data': crop_filename,
-                'new_path': new_path}
+    context = {'data': args['crop_filename']
+         }
     return  JsonResponse(context)
 
 
@@ -229,23 +229,22 @@ def startSearch(request):
     search_start = int(float(search_start))
     search_end = int(float(search_end))
 
-    
-
-    # real
-    df = isgame_test.startgame(args)
-    print('len', len(df))
-    search_list = df[0].tolist()
-
-
-    # test
-    # search_list = []
-    # for i in range(search_end):
-    #     if i < int(int(search_end)/2):
-    #         search_list.append(1)
-    #     elif i <int(int(search_end) * 3/4):
-    #         search_list.append(0)
-    #     else:
-    #         search_list.append(1)
+    # search game
+    if args['flag'] =='test':
+        search_list = []
+        for i in range(search_end):
+            if i < int(int(search_end)/2):
+                search_list.append(1)
+            elif i <int(int(search_end) * 3/4):
+                search_list.append(0)
+            else:
+                search_list.append(1)
+        time.sleep(2)
+    else:
+        df = isgame_test.startgame(args)
+        print('len', len(df))
+        search_list = df[0].tolist()
+            
 
 
     time_data = [i for i in range(len(search_list))]
@@ -277,10 +276,11 @@ class subtitleView(View):
             # video crop
             save_start = request.POST.get('save_start', '')
             save_end =request.POST.get('save_end', '')
-            crop_filename = cropVideo.crop(args,save_start, save_end)
-            print(crop_filename, 'success')
+            
+            if args['flag'] !='test':
+                crop_filename = cropVideo.crop(args,save_start, save_end)
+                print(crop_filename, 'success')
 
-        
             # s3 -> transcribe
             sub_index, sub_time, sub_text = audio2text.startSTT( args, args['crop_filename'])
         
@@ -301,7 +301,23 @@ class subtitleView(View):
 
             startTime = sub_time[int(startIndex)-1]
             startTime = startTime.split('-->')[0].split('.')[0]
-            context = {'startTime' : startTime}
+            startTime_list = startTime.replace('0','').split(':')
+            print('list', startTime_list)
+            startTime_second = 1
+            hournum = 0
+            minutenum = 0
+            secondnum = 0
+            for i, time in enumerate(startTime_list):
+                if time != '':
+                    if i == 0:
+                        hournum = 3600 * int(time)
+                    if i == 1:
+                        minutenum = 60 * int(time)
+                    if i == 2:
+                        secondnum = int(time)
+            startTime_second = hournum +minutenum +secondnum
+            print('second',round(int(startTime_second), 3) )
+            context = {'startTime' : round(int(startTime_second), 3)}
             # return render(request,'highlight/subtitle.html', context )
             return JsonResponse(context)
 
@@ -334,16 +350,15 @@ class makesubtitleView(View):
                 key = int(dict_key.replace('textInput',''))+1
                 text_dict[key]=request.POST.get(dict_key)
 
-        #real
-        make_result = makeVideo.saveSrt(args,time_dict,text_dict)
-        print('make', make_result)
-        final_result =makeVideo.mergeVideo(args)
-        if final_result:
+        # make video with subtitle
+        if args['flag'] =='test':
             return render(request, 'highlight/last.html')
-
-        #test
-        # return render(request, 'highlight/last.html')
-
+        else: 
+            make_result = makeVideo.saveSrt(args,time_dict,text_dict)
+            print('make', make_result)
+            final_result =makeVideo.mergeVideo(args)
+            if final_result:
+                return render(request, 'highlight/last.html')
 
 
     
