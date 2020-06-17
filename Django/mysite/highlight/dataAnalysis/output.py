@@ -18,7 +18,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import LSTM
 from sklearn.model_selection import train_test_split
 import sys
-import glob
+import glob, os
 mod = sys.modules[__name__]
 from tensorflow.keras.models import load_model
 
@@ -67,9 +67,10 @@ def output(args, df):
 
     ################## 모델 경로 ###################
     model = load_model('./static/highlight/highlight_final.h5')
-    print('model',os.path.isfile('./static/highlight/highlight_final.h5'))
+    # print('model',os.path.isfile('./static/highlight/highlight_final.h5'))
     pred = model.predict(test_feature)
 
+    print('pred', pred)
     highlight = pd.DataFrame(pred, index=df.index[15:])
     
     df['delta_k'], df['delta_d'], df['delta_a']
@@ -79,6 +80,16 @@ def output(args, df):
     d_data = df['delta_d'].tolist()
     a_data = df['delta_a'].tolist()
 
+    highlight2 = []
+    for i in highlight_rate:
+        highlight2.append(i[0])
+
+    print('highlight', highlight2)
+    print('k', k_data)
+    print('d', d_data)
+    print('a', a_data)
+
+
     ############# 하이라이트 및 K, D, A 발생지점 ###################
     # return highlight, df['delta_k'], df['delta_d'], df['delta_a']
-    return highlight_rate, k_data, d_data, a_data
+    return highlight2, k_data, d_data, a_data

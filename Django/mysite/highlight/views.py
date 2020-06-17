@@ -26,9 +26,9 @@ import datetime, random
 # Create your views here.
 global flag, sub_time, filename, base_root, pluscount, dirname, args, audio_file
 
-job_name = 'hi_25'
-# flag = 'test'
-flag = 'real'
+job_name = 'hi_34'
+flag = 'test'
+# flag = 'real'
 
 
 
@@ -38,8 +38,12 @@ filename = 'test.mp4'
 pluscount = 1000
 # filename = 'test10m.mp4'
 # pluscount = 10000
+# filename = 'test30m.mp4'
+# pluscount = 180000
+
 # filename = 'test3h.mp4'
 # pluscount = 18000
+
 
 
 dirname = filename.replace('.mp4', '')
@@ -252,8 +256,23 @@ def startSearch(request):
         df = isgame_test.startgame(args)
         print('len', len(df))
         search_list = df[0].tolist()
-            
+        
+    def lenresize(search_list, window_size):
+        res = []
+        # window_size = 60
+        n = len(search_list)//window_size
+        for i in range(n):
+            qqq=list(set(search_list[i*window_size:(i+1)*window_size]))
+            # print(qqq)
 
+            if len(qqq)==1:
+                res.append(qqq[0])
+            else :
+                res.append(1)
+        return res
+        
+    search_list = lenresize(search_list, 60)
+        
 
     time_data = [i for i in range(len(search_list))]
 
