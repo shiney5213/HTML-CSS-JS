@@ -54,12 +54,12 @@
 </head>
 <body>
     <video id="myVideo" controls  width="800" height="550" autoplay controls >
-        <!-- <source src="../static/highlight/test3h/video/test3h.mp4" type="video/mp4" />
-        <source src="../static/highlight/test3h/video/test3h.webm" type="video/webM" />
-        <source src="../static/highlight/test3h/video/test3h.ogv" type="video/ogg" /> -->
-        <source src="../static/highlight/test/video/test.mp4" type="video/mp4" />
-        <source src="../static/highlight/test/video/test.webm" type="video/webM" />
-        <source src="../static/highlight/test/video/test.ogv" type="video/ogg" />
+        <source src="../static/highlight/test3h/video/test3h_2.mp4" type="video/mp4" />
+        <source src="../static/highlight/test3h/video/test3h_2.webm" type="video/webM" />
+        <source src="../static/highlight/test3h/video/test3h_2.ogv" type="video/ogg" /> 
+        <!-- <source src="../static/highlight/test/video/test_2.mp4" type="video/mp4" />
+        <source src="../static/highlight/test/video/test_2.webm" type="video/webM" />
+        <source src="../static/highlight/test/video/test_2.ogv" type="video/ogg" /> -->
         
         <p>Your browser does not support the video tag.</p>
     </video>
@@ -114,7 +114,7 @@
                 console.log(playtime);
                 video[0].currentTime = parseFloat(playtime);
                 video[0].play();
-                timeCurrent.text(playtime);
+                // timeCurrent.text(playtime);
             });
     };
 

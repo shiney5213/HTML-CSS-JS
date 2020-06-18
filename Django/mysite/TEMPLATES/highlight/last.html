@@ -10,7 +10,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/dot-luv/jquery-ui.css">
     <style>
-        button{
+        /* button{
             width : 100px;
             height: 50px;
         }
@@ -32,7 +32,7 @@
         }
         .timeInput{
             width:200px;
-        }
+        } */
 
         #myVideo{
             transform: translateX(50%);
@@ -42,11 +42,12 @@
 
 </head>
 <body>
-    <video id="myVideo" controls  width="900" height="600"  >
+    <video id="myVideo" controls autoplay width="900" height="600"  >
         <!-- <source src="{% static 'highlight/test/video/'test_final.mp4}" type="video/mp4" /> -->
-        <source src="/static/highlight/test/video/test_final.mp4" type="video/mp4" />
+        <!-- <source src="/static/highlight/test/video/test_final.mp4" type="video/mp4" /> -->
+        <source src="/static/highlight/test3h/video/test3h_final.mp4" type="video/mp4" />
         
-        <!-- <source src="../static/highlight/test/video/test_final.webm" type="video/webM" /> -->
-        <!-- <source src="../static/highlight/test/video/test_final.ogv" type="video/ogg" /> -->
+        <source src="/static/highlight/test/video/test_final.webm" type="video/webM" />
+        <source src="/static/highlight/test/video/test_final.ogv" type="video/ogg" />
         <p>Your browser does not support the video tag.</p>
     </video>

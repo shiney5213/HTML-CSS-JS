@@ -72,9 +72,10 @@ def output(args, df):
 
     print('pred', pred)
     highlight = pd.DataFrame(pred, index=df.index[15:])
+
+    highlight.to_csv(args['data_root'] + 'highlight.csv')
     
-    df['delta_k'], df['delta_d'], df['delta_a']
-    
+    df.to_csv(args['data_root'] + 'final_result.csv')    
     highlight_rate = pred.tolist()
     k_data = df['delta_k'].tolist()
     d_data = df['delta_d'].tolist()

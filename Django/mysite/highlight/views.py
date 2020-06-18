@@ -26,7 +26,7 @@ import datetime, random
 # Create your views here.
 global flag, sub_time, filename, base_root, pluscount, dirname, args, audio_file
 
-job_name = 'hi_34'
+job_name = 'hi_40'
 flag = 'test'
 # flag = 'real'
 
@@ -34,8 +34,7 @@ flag = 'test'
 
 # filename = 'test30m.mp4'
 # pluscount  = 18000
-filename = 'test.mp4'
-pluscount = 1000
+
 # filename = 'test10m.mp4'
 # pluscount = 10000
 # filename = 'test30m.mp4'
@@ -43,6 +42,8 @@ pluscount = 1000
 
 # filename = 'test3h.mp4'
 # pluscount = 18000
+filename = 'test.mp4'
+pluscount = 1000
 
 
 
@@ -105,10 +106,10 @@ def analysis(request):
     print('시간 확인',analysis_start, analysis_end)
     analysis_time = int(float(analysis_end)-float(analysis_start))
 
-    analysisstarttime = int(float(analysis_start))
-    analysisstarttime = str(datetime.timedelta(seconds=analysisstarttime))
-    analysisendtime = int(float(analysis_end))
-    analysisendtime = str(datetime.timedelta(seconds=analysisendtime))
+    analysisstart = int(float(analysis_start))
+    analysisstarttime = str(datetime.timedelta(seconds=analysisstart))
+    analysisend = int(float(analysis_end))
+    analysisendtime = str(datetime.timedelta(seconds=analysisend))
     print('시간 ', analysisstarttime, analysisendtime)
 
 
@@ -127,19 +128,23 @@ def analysis(request):
         # k_data = k_data.tolist()
         # d_data = d_data.tolist()
         # a_data = a_data.tolist()
-
-
         highlight_rate, k_data, d_data, a_data = output.output(args, ddf)
 
 
-    time_data2 = [ i for i in range(analysis_time)]
+    color = ['rgba(75, 192, 192, 1)' for i in range (len(highlight_rate))]
 
+
+    time_data2 = []
+    print(analysis_start, analysis_end)
+    for i in range(int(analysis_start), int(float(analysis_end))):
+        time_data2.append(i)
 
     context = {'time_data2': time_data2,
                 'highlight_rate': highlight_rate,
                 'k_data': k_data,
                 'a_data': a_data,
-                'd_data': d_data}
+                'd_data': d_data,
+                'color': color}
     return JsonResponse(context)
 
 
@@ -151,8 +156,8 @@ class highlightView(View):
         return super(highlightView, self).dispatch(*args, **kwargs)
 
     def get(self, request):
-        return render(request, 'highlight/hilight_index.html')
-        # return render(request, 'highlight/8.index_slider.html')
+        # return render(request, 'highlight/hilight_index.html')
+        return render(request, 'highlight/highlight_index2.html')
 
 
     def post(self, request):
@@ -198,7 +203,7 @@ class highlightView(View):
             filename = request.POST['filename']
         # context= {'filename': filename, 'dirname': make_dir}
         context= {'data': filename}
-        time.sleep(2)
+        time.sleep(1)
         
         return redirect('', context)
         
@@ -247,11 +252,9 @@ def startSearch(request):
         for i in range(search_end):
             if i < int(int(search_end)/2):
                 search_list.append(1)
-            elif i <int(int(search_end) * 3/4):
-                search_list.append(0)
             else:
                 search_list.append(1)
-        time.sleep(2)
+        time.sleep(1)
     else:
         df = isgame_test.startgame(args)
         print('len', len(df))
@@ -274,11 +277,12 @@ def startSearch(request):
     search_list = lenresize(search_list, 60)
         
 
-    time_data = [i for i in range(len(search_list))]
-
+    color = ['rgba(75, 192, 192, 1)' for i in range (len(search_list))]
+    time_data = [i for i in range(search_start, search_end)]
 
     context = {'time_data': time_data,
                 'search_list': search_list,
+                'color': color
                 }
 
     return  JsonResponse(context)
