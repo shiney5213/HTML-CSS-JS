@@ -13,6 +13,7 @@
         button{
             width : 100px;
             height: 50px;
+            left: 300px
         }
 
         .textInput{
@@ -27,22 +28,33 @@
         .subDiv{
             background: #ccc;
             padding: 10px;
-            /* width: 1020px; */
-            /* border-radius: 5px; */
+            width: 1020px;
+            border-radius: 5px;
+            /* transform: translateX(50%); */
+
         }
         .timeInput{
             width:200px;
         }
 
         #myVideo{
-            /* transform: translateX(50%); */
-            float: left;
-            padding-left: 20px;
+            position: relative;
+            transform: translateX(50%);
+            /* float: left; */
+            /* padding-left: 20px; */
+            /* margin:0 auto; */
+
+            /* padding-left: 300px; */
         }
         form{
-            float:right;
+            /* float:right; */
+            transform: translateX(17%);
+
+            position: relative;
             padding-right: 20px;
-            padding-top: 50px;
+            /* padding-top: 50px; */
+            /* margin:0 auto; */
+
         }
         .current_time{
             position: relative;
@@ -54,16 +66,16 @@
 </head>
 <body>
     <video id="myVideo" controls  width="800" height="550" autoplay controls >
-        <source src="../static/highlight/test3h/video/test3h_2.mp4" type="video/mp4" />
-        <source src="../static/highlight/test3h/video/test3h_2.webm" type="video/webM" />
-        <source src="../static/highlight/test3h/video/test3h_2.ogv" type="video/ogg" /> 
+        <source src="/static/highlight/test3h/video/test3h_110.mp4" type="video/mp4" />
+        <!-- <source src="../static/highlight/test3h/video/test3h_2.webm" type="video/webM" /> -->
+        <!-- <source src="../static/highlight/test3h/video/test3h_2.ogv" type="video/ogg" />  -->
         <!-- <source src="../static/highlight/test/video/test_2.mp4" type="video/mp4" />
         <source src="../static/highlight/test/video/test_2.webm" type="video/webM" />
         <source src="../static/highlight/test/video/test_2.ogv" type="video/ogg" /> -->
         
         <p>Your browser does not support the video tag.</p>
     </video>
-    <!-- <div id="currentTime" class="current_time">00:00</div> -->
+    <div id="currentTime" class="current_time"></div>
 
 
 <!-- <h2 id = "title"></h2> -->
@@ -73,11 +85,19 @@
 <div id="sub_time"></div> -->
 
 <!-- <div id="suball">  </div> -->
-<form action="/highlight/subtitle/makesubtitle" method = "POST" id = suball>
+<form action="/highlight/highlightgraph/subtitle/makesubtitle" method = "POST" id = suball>
     <!-- <input type="submit" value="확인" id = conformBtn> -->
 </form>
 
 <script>
+    // let $video = $('#myVideo');
+
+    // //update HTML5 video current play time
+    // $video.on('timeupdate', function() {
+    //     $('.current').text($video[0].currentTime);
+    // });
+    
+    
     var timeCurrent = document.getElementById("currentTime");
     //현재재생시간
     
@@ -111,10 +131,12 @@
                 //var video = $('#myVideo')
 
                 // alert(playtime)
-                console.log(playtime);
+                console.log(parseFloat(playtime), typeof(playtime));
+               
+
                 video[0].currentTime = parseFloat(playtime);
                 video[0].play();
-                // timeCurrent.text(playtime);
+                // timeCurrent.innertext(eFloat(playtime));
             });
     };
 
@@ -126,6 +148,8 @@
        subDiv.setAttribute('id', 'subDiv'+i);
        subDiv.setAttribute('class', 'subDiv');
        subDiv.setAttribute('text', sub_index[i]);
+    //    subDiv.setAttribute('width', 1200);
+
        document.getElementById('suball').appendChild(subDiv);
 
         //form

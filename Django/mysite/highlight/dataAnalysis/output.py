@@ -22,75 +22,115 @@ import glob, os
 mod = sys.modules[__name__]
 from tensorflow.keras.models import load_model
 
+def thick1(df, column):
+    List = df[column].astype('int')
+    result = List.tolist()
+    ind = np.where(List == 1)
+    ind = list(ind[0])
+
+    for i in ind:
+        for j in range(10): # 10은 두께를 나타냄으로 수정해서 두께조절
+            result[i-j] = 1
+            result[ min( [ i+j, len(result)-1 ] ) ] = 1
+
+    return result
+
+def thick2(df):
+    return thick1(df, 'delta_k'), thick1(df, 'delta_d'), thick1(df, 'delta_a')
+
+
 def output(args, df):
     ##################### df 경로 ######################
     # df = pd.read_excel('/content/test/20200427_Faker_604123582.mp4_2.xlsx')
 
     # del df['Unnamed: 0']
-    scaler = MinMaxScaler()
-    df.set_index('time', inplace=True)
+    highlight_path = args['data_root'] + 'highlight.csv'
+    finalresult_path = args['data_root'] + 'final_result.csv'
 
-    df['delta_k']= df['k'] - df['k'].shift(1)
-    df['delta_d']= df['d'] - df['d'].shift(1)
-    df['delta_a']= df['a'] - df['a'].shift(1)
-    df['delta_gold']= df['gold'] - df['gold'].shift(1)
+    if os.path.isfile(highlight_path) and os.path.isfile(finalresult_path):
 
-    df['delta_emo'] = abs(df[['ha','sa','an','ca','dis','fe','sup','conf']] -
-                                    df[['ha','sa','an','ca','dis','fe','sup','conf']].shift(1)).sum(axis=1)
+        print('highlight, kad파일이 있어요')
+        highlight_data = pd.read_csv(highlight_path)
+        X = highlight_data['0']
+        X_MinMax = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
 
-    df.dropna(inplace=True)
+        highlight_rate =X_MinMax.to_list()
 
-    window_size = 15
-    scale_cols = ['k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf'
-                    ,'sound']
+        kda = pd.read_csv(finalresult_path)
 
-    feature_cols = ['k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf',
-                    'sound','delta_k','delta_d','delta_a','delta_emo']
+        k_data =thick2(kda)[0]
+        d_data =thick2(kda)[1]
+        a_data =thick2(kda)[2]
 
-    # label_cols = ['count']
+       
+        return highlight_rate, k_data, d_data, a_data
 
-    df[scale_cols] = scaler.fit_transform(df[scale_cols])
+    else:    
+        scaler = MinMaxScaler()
+        df.set_index('time', inplace=True)
 
-    def make_dataset2(data, window_size=20):
-        feature_list = []
+        df['delta_k']= df['k'] - df['k'].shift(1)
+        df['delta_d']= df['d'] - df['d'].shift(1)
+        df['delta_a']= df['a'] - df['a'].shift(1)
+        df['delta_gold']= df['gold'] - df['gold'].shift(1)
+
+        df['delta_emo'] = abs(df[['ha','sa','an','ca','dis','fe','sup','conf']] -
+                                        df[['ha','sa','an','ca','dis','fe','sup','conf']].shift(1)).sum(axis=1)
+
+        df.dropna(inplace=True)
+
+        window_size = 15
+        scale_cols = ['k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf'
+                        ,'sound']
+
+        feature_cols = ['k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf',
+                        'sound','delta_k','delta_d','delta_a','delta_emo']
+
+        # label_cols = ['count']
+
+        df[scale_cols] = scaler.fit_transform(df[scale_cols])
+
+        def make_dataset2(data, window_size=20):
+            feature_list = []
+            
+            for i in range(len(data) - window_size):
+                feature_list.append(np.array(data.iloc[i:i+window_size]))
+                # label_list.append(np.array(label.iloc[i+window_size]))
+            return np.array(feature_list)
+
+
+        test_feature = df[feature_cols]
+        # test_label = df[label_cols]
+
+        test_feature = make_dataset2(test_feature, window_size)
+
+        ################## 모델 경로 ###################
+        model = load_model('./static/highlight/highlight_final.h5')
+        # print('model',os.path.isfile('./static/highlight/highlight_final.h5'))
+        pred = model.predict(test_feature)
+
+        print('pred', pred)
+        highlight = pd.DataFrame(pred, index=df.index[15:])
+
+        highlight.to_csv(args['data_root'] + 'highlight.csv')
         
-        for i in range(len(data) - window_size):
-            feature_list.append(np.array(data.iloc[i:i+window_size]))
-            # label_list.append(np.array(label.iloc[i+window_size]))
-        return np.array(feature_list)
+        df.to_csv(args['data_root'] + 'final_result.csv')   
+
+        highlight_rate = pred.tolist()
+        k_data = df['delta_k'].tolist()
+        d_data = df['delta_d'].tolist()
+        a_data = df['delta_a'].tolist()
+
+        highlight2 = []
+        for i in highlight_rate:
+            highlight2.append(i[0])
+
+        print('highlight', highlight2)
+        print('k', k_data)
+        print('d', d_data)
+        print('a', a_data)
 
 
-    test_feature = df[feature_cols]
-    # test_label = df[label_cols]
-
-    test_feature = make_dataset2(test_feature, window_size)
-
-    ################## 모델 경로 ###################
-    model = load_model('./static/highlight/highlight_final.h5')
-    # print('model',os.path.isfile('./static/highlight/highlight_final.h5'))
-    pred = model.predict(test_feature)
-
-    print('pred', pred)
-    highlight = pd.DataFrame(pred, index=df.index[15:])
-
-    highlight.to_csv(args['data_root'] + 'highlight.csv')
-    
-    df.to_csv(args['data_root'] + 'final_result.csv')    
-    highlight_rate = pred.tolist()
-    k_data = df['delta_k'].tolist()
-    d_data = df['delta_d'].tolist()
-    a_data = df['delta_a'].tolist()
-
-    highlight2 = []
-    for i in highlight_rate:
-        highlight2.append(i[0])
-
-    print('highlight', highlight2)
-    print('k', k_data)
-    print('d', d_data)
-    print('a', a_data)
-
-
-    ############# 하이라이트 및 K, D, A 발생지점 ###################
-    # return highlight, df['delta_k'], df['delta_d'], df['delta_a']
-    return highlight2, k_data, d_data, a_data
+        ############# 하이라이트 및 K, D, A 발생지점 ###################
+        # return highlight, df['delta_k'], df['delta_d'], df['delta_a']
+        return highlight2, k_data, d_data, a_data

@@ -127,35 +127,26 @@ def gaming(filepath, model, pluscount):
 
 def startgame(args):
 
-    filepath = args['video_root'] + args['filename']
-    data_path = args['data_root']
-    pluscount = args['pluscount']
-    model = load_model('./static/highlight/isgame.h5')
-    print('model import success')
-    # filepath = '/content/drive/My Drive/highlight/data/20200508_Faker_614572048.mp4'
-    print(filepath, os.path.isfile(filepath))
-    df = gaming(filepath, model, pluscount)
+    isgamefile = args['data_root'] +'/isgame.csv'
+    if os.path.isfile(isgamefile):
+        print('isgame파일이 있어요')
+        df = pd.read_csv(isgamefile)
+        df = df.iloc[:,0].to_list()
 
-    try:
+    else:    
+        filepath = args['video_root'] + args['filename']
+        data_path = args['data_root']
+        pluscount = args['pluscount']
+        model = load_model('./static/highlight/isgame.h5')
+        # print('model import success')
+        # filepath = '/content/drive/My Drive/highlight/data/20200508_Faker_614572048.mp4'
+        # print(filepath, os.path.isfile(filepath))
+        df = gaming(filepath, model, pluscount)
+
+    
         df.to_csv(data_path +'/isgame.csv', index = False)
-    except Exception as err:
-        print(err)  
 
-     
- #plot save
-    pltx = 1000/72
-    plty = 144/72
-
-    plt.rcParams['figure.figsize'] = (pltx,plty)
-    plt.rcParams['lines.linewidth'] = 2
-    plt.rcParams['lines.color']= 'r'
-    plt.rcParams['axes.grid'] = True
-
-    plt.plot(df)
-    plt.yticks([0,1])
-    plt.draw()
-    fig = plt.gcf()
-    fig.savefig(data_path + '/isgame.png', dpi = fig.dpi,  bbox_inches='tight')
-    print('png save')
+        df = df.iloc[:,0].to_list()
+    
     return df
 # plt.plot(df)

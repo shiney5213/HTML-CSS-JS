@@ -248,138 +248,138 @@ def process(args, starttime, endtime):
 
 def main(args, starttime ='01:00:00' , endtime =  '01:01:00' ):
     
-    
-     # 폴더 만들기
-    make_dir = args['dirname']        
-
-
-    # audio_root =f"./static/highlighteditor/{make_dir}/audio/" 
-    # data_root = f"./static/highlighteditor/{make_dir}/data/" 
-    # image_root =f"./static/highlighteditor/{make_dir}/image/" 
-    # video_root =f"./static/highlighteditor/{make_dir}/video/" 
-    audio_root = args['audio_root']
-    data_root =  args['data_root']
-    image_root = args['image_root']
-    video_root = args['video_root']
-
-    try:
-        os.makedirs(audio_root)
-    except Exception as err:
-        print(err)
-    try:
-        os.makedirs(data_root)
-    except Exception as err:
-        print(err)    
-    try:
-        os.makedirs(image_root)
-    except Exception as err:
-        print(err)    
-    
-    alltime_list = [[[str(starttime), str(endtime) ]]]
-
-    file_name_mp4 = args['filename']
-    file_name_mp3 = args['audio_file']
-    file_mp4 = video_root + file_name_mp4
-    file_mp3 = audio_root + file_name_mp3
-
-    starttime = alltime_list[0][0][0]
-    endtime = alltime_list[0][0][1]
-    
-
-
-    datalist = process(args, starttime,endtime)
-    print('datalist',len(datalist))
-    with open(data_root + 'datalist.txt', 'wb') as f:
-        pickle.dump(datalist, f)
-
-    with open(data_root + 'datalist.txt', 'rb') as f:
-        datalist = pickle.load(f)
-    dlist = datalist.copy()
-
-    for data in dlist:
-        try:
-            emo = [0]*8
-            for i in data[4:12]:
-        #         print(i)
-                if i['Type'] == 'HAPPY':
-                    emo[0]=i['Confidence']
-                elif i['Type'] == 'SAD':
-                    emo[1]=i['Confidence']
-                elif i['Type'] == 'ANGRY':
-                    emo[2]=i['Confidence']
-                elif i['Type'] == 'CALM':
-                    emo[3]=i['Confidence']
-                elif i['Type'] == 'DISGUSTED':
-                    emo[4]=i['Confidence']
-                elif i['Type'] == 'FEAR':
-                    emo[5]=i['Confidence']
-                elif i['Type'] == 'SURPRISED':
-                    emo[6]=i['Confidence']
-                elif i['Type'] == 'CONFUSED':
-                    emo[7]=i['Confidence']
-            data[4:12]=emo[:]
-        except:
-            continue
-
-    df = pd.DataFrame(dlist)
-    print(df)
-
-    # kda 나누기
-    df['k']=df[2].str.split('/').str[0]
-    df['d']=df[2].str.split('/').str[1]
-    df['a']=df[2].str.split('/').str[2]
-
-    # 숫자인지 확인. 아닐경우 Na
-    df[0]=pd.to_numeric(df[0], errors='coerce')
-    df[1]=pd.to_numeric(df[1], errors='coerce')
-    df[3]=pd.to_numeric(df[3], errors='coerce')
-    df['k']=pd.to_numeric(df['k'], errors='coerce')
-    df['d']=pd.to_numeric(df['d'], errors='coerce')
-    df['a']=pd.to_numeric(df['a'], errors='coerce')
-    del df[0],df[1]
-
-    df.dropna(inplace=True)
-
-    # 변화량을 기반으로 df 생성
-    dff = pd.DataFrame(columns=['time','k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf'])
-    dff['time'] = df[12].map(msec_time)
-    dff['k'] = df['k']
-    dff['d'] = df['d']
-    dff['a'] = df['a']
-    dff['gold'] = df[3]
-    dff['ha'] = df[4]
-    dff['sa'] = df[5]
-    dff['an'] = df[6]
-    dff['ca'] = df[7]
-    dff['dis'] = df[8]
-    dff['fe'] = df[9]
-    dff['sup'] = df[10]
-    dff['conf'] = df[11]
-
-    
-
-    # file2_name = filename.replace('mp4', 'mp3')
-    audiofilepath = args['audio_root'] + args['audio_file']
-    sound = sound2data(audiofilepath, starttime, endtime)
-    dff=pd.merge(dff, sound, how='left', on='time')
-    
-    # dff.to_excel(data_root + 'dff.xlsx')
-
-    # with open(data_root + 'dff.txt', 'wb') as f:
-    #     pickle.dump(dff, f)
-
-    # with open(data_root + 'dff.txt', 'rb') as f:
-    #     dff = pickle.load(f)
     preprocessing_file = args['data_root']+'preprocessing.csv'
-
-    dff.to_csv(preprocessing_file, index = False)
-    print('preprocessing_file save success')
-
-
-    return dff
-
+    if os.path.isfile(preprocessing_file):
+        ddf = pd.read_csv(preprocessing_file)
+        return ddf 
     
-    
+    else:
+        make_dir = args['dirname']        
+
+
+        audio_root = args['audio_root']
+        data_root =  args['data_root']
+        image_root = args['image_root']
+        video_root = args['video_root']
+
+        try:
+            os.makedirs(audio_root)
+        except Exception as err:
+            print(err)
+        try:
+            os.makedirs(data_root)
+        except Exception as err:
+            print(err)    
+        try:
+            os.makedirs(image_root)
+        except Exception as err:
+            print(err)    
+        
+        alltime_list = [[[str(starttime), str(endtime) ]]]
+
+        file_name_mp4 = args['filename']
+        file_name_mp3 = args['audio_file']
+        file_mp4 = video_root + file_name_mp4
+        file_mp3 = audio_root + file_name_mp3
+
+        starttime = alltime_list[0][0][0]
+        endtime = alltime_list[0][0][1]
+        
+
+
+        datalist = process(args, starttime,endtime)
+        print('datalist',len(datalist))
+        with open(data_root + 'datalist.txt', 'wb') as f:
+            pickle.dump(datalist, f)
+
+        with open(data_root + 'datalist.txt', 'rb') as f:
+            datalist = pickle.load(f)
+        dlist = datalist.copy()
+
+        for data in dlist:
+            try:
+                emo = [0]*8
+                for i in data[4:12]:
+            #         print(i)
+                    if i['Type'] == 'HAPPY':
+                        emo[0]=i['Confidence']
+                    elif i['Type'] == 'SAD':
+                        emo[1]=i['Confidence']
+                    elif i['Type'] == 'ANGRY':
+                        emo[2]=i['Confidence']
+                    elif i['Type'] == 'CALM':
+                        emo[3]=i['Confidence']
+                    elif i['Type'] == 'DISGUSTED':
+                        emo[4]=i['Confidence']
+                    elif i['Type'] == 'FEAR':
+                        emo[5]=i['Confidence']
+                    elif i['Type'] == 'SURPRISED':
+                        emo[6]=i['Confidence']
+                    elif i['Type'] == 'CONFUSED':
+                        emo[7]=i['Confidence']
+                data[4:12]=emo[:]
+            except:
+                continue
+
+        df = pd.DataFrame(dlist)
+        print(df)
+
+        # kda 나누기
+        df['k']=df[2].str.split('/').str[0]
+        df['d']=df[2].str.split('/').str[1]
+        df['a']=df[2].str.split('/').str[2]
+
+        # 숫자인지 확인. 아닐경우 Na
+        df[0]=pd.to_numeric(df[0], errors='coerce')
+        df[1]=pd.to_numeric(df[1], errors='coerce')
+        df[3]=pd.to_numeric(df[3], errors='coerce')
+        df['k']=pd.to_numeric(df['k'], errors='coerce')
+        df['d']=pd.to_numeric(df['d'], errors='coerce')
+        df['a']=pd.to_numeric(df['a'], errors='coerce')
+        del df[0],df[1]
+
+        df.dropna(inplace=True)
+
+        # 변화량을 기반으로 df 생성
+        dff = pd.DataFrame(columns=['time','k','d','a','gold','ha','sa','an','ca','dis','fe','sup','conf'])
+        dff['time'] = df[12].map(msec_time)
+        dff['k'] = df['k']
+        dff['d'] = df['d']
+        dff['a'] = df['a']
+        dff['gold'] = df[3]
+        dff['ha'] = df[4]
+        dff['sa'] = df[5]
+        dff['an'] = df[6]
+        dff['ca'] = df[7]
+        dff['dis'] = df[8]
+        dff['fe'] = df[9]
+        dff['sup'] = df[10]
+        dff['conf'] = df[11]
+
+        
+
+        # file2_name = filename.replace('mp4', 'mp3')
+        audiofilepath = args['audio_root'] + args['audio_file']
+        sound = sound2data(audiofilepath, starttime, endtime)
+        dff=pd.merge(dff, sound, how='left', on='time')
+        
+        # dff.to_excel(data_root + 'dff.xlsx')
+
+        # with open(data_root + 'dff.txt', 'wb') as f:
+        #     pickle.dump(dff, f)
+
+        # with open(data_root + 'dff.txt', 'rb') as f:
+        #     dff = pickle.load(f)
+        preprocessing_file = args['data_root']+'preprocessing.csv'
+
+        dff.to_csv(preprocessing_file, index = False)
+        print('preprocessing_file save success')
+
+
+        return dff
+
+        
+        
 
 
 

@@ -14,6 +14,7 @@ from time import gmtime, strftime
 import numpy as np
 
 def upload_file(audio_file, args,  object_name=None):
+
     #upload file in s3
     """Upload a file to an S3 bucket
 
@@ -202,27 +203,12 @@ def getPhraseText( phrase ):
 
 def startSTT(args, crop_filename):
     s3 = boto3.resource('s3')
-    
- 
-    
-    audio_file = args['audio_root'] + args['audio_file']
-    print('audio_file is', os.path.isfile(audio_file))
-    ### upload file s3
-    upload_result = upload_file(audio_file, args, object_name=None)
-    print('upload', upload_result)
 
-    ### transcibe in AWS
-    MediaFormat  = 'mp3'
-    # # mediaUri = f"s3://eyshin/{args['audio_file']}"
-    mediaUri = f"s3://eyshin/{audio_file}"
-    mediaFile = 'test_audio'
-
-    # mediaFile = args['dirname']
-
-    if args['flag']=='test':
-        subtitles_file = args['video_root']+args['subtitles_file']
+    subtitles_file = args['video_root']+args['subtitles_file']
+    if os.path.isfile(subtitles_file):
+        print('자막 파일 있어요')
         with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
-            subtitle = f.read()
+                    subtitle = f.read()
 
         subtitle = subtitle.replace("'", '')
         subtitle_list = subtitle.split('\n\n')
@@ -243,20 +229,27 @@ def startSTT(args, crop_filename):
             sub_time.append(time.replace(',','.'))
             sub_text.append(text.replace(',','.'))
 
+        # print(len(sub_text), sub_text)
+        return sub_index, sub_time, sub_text    
+    
+    
     else:
-        status = createTranscribeJob( args, mediaUri, mediaFile)
-        if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
-            ### get transcript result in asw Uri
-            transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
-            ### transcript result
-            transcript = getTranscript(str(transcript_Uri))
+        audio_file = args['audio_root'] + args['audio_file']
+        print('audio_file is', os.path.isfile(audio_file))
+        ### upload file s3
+        upload_result = upload_file(audio_file, args, object_name=None)
+        print('upload', upload_result)
 
-            ### save src file
+        ### transcibe in AWS
+        MediaFormat  = 'mp3'
+        # # mediaUri = f"s3://eyshin/{args['audio_file']}"
+        mediaUri = f"s3://eyshin/{audio_file}"
+        mediaFile = 'test_audio'
+
+        # mediaFile = args['dirname']
+
+        if args['flag']=='test':
             subtitles_file = args['video_root']+args['subtitles_file']
-            print('subpath', subtitles_file)
-            transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
-            # print(transcript_dict)
-
             with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
                 subtitle = f.read()
 
@@ -279,7 +272,43 @@ def startSTT(args, crop_filename):
                 sub_time.append(time.replace(',','.'))
                 sub_text.append(text.replace(',','.'))
 
-    print(len(sub_text), sub_text)
-    return sub_index, sub_time, sub_text
+        else:
+            status = createTranscribeJob( args, mediaUri, mediaFile)
+            if status['TranscriptionJob']['TranscriptionJobStatus'] =='COMPLETED':
+                ### get transcript result in asw Uri
+                transcript_Uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
+                ### transcript result
+                transcript = getTranscript(str(transcript_Uri))
+
+                ### save src file
+                subtitles_file = args['video_root']+args['subtitles_file']
+                print('subpath', subtitles_file)
+                transcript_dict = writeTranscriptToSRT(transcript, 'ko-KR', subtitles_file)
+                # print(transcript_dict)
+
+                with open(subtitles_file, 'r', encoding = 'UTF-8') as f:
+                    subtitle = f.read()
+
+                subtitle = subtitle.replace("'", '')
+                subtitle_list = subtitle.split('\n\n')
+                print(len(subtitle_list))
+
+                sub1 = []
+                for sub in subtitle_list:
+                    if sub !='' :
+                        sub1.append(sub.split('\n'))
+                print('sub1', sub1, len(sub1))
+
+                sub_index = []
+                sub_time = []
+                sub_text = []
+
+                for (index, time, text) in sub1:
+                    sub_index.append(index)
+                    sub_time.append(time.replace(',','.'))
+                    sub_text.append(text.replace(',','.'))
+
+        print(len(sub_text), sub_text)
+        return sub_index, sub_time, sub_text
 
 

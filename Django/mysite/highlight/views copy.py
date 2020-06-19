@@ -27,8 +27,8 @@ import datetime, random
 global flag, sub_time, filename, base_root, pluscount, dirname, args, audio_file
 
 job_name = 'hi_40'
-# flag = 'test'
-flag = 'real'
+flag = 'test'
+# flag = 'real'
 
 
 
@@ -40,10 +40,10 @@ flag = 'real'
 # filename = 'test30m.mp4'
 # pluscount = 180000
 
-filename = 'test3h.mp4'
-pluscount = 18000
-# filename = 'test.mp4'
-# pluscount = 1000
+# filename = 'test3h.mp4'
+# pluscount = 18000
+filename = 'test.mp4'
+pluscount = 1000
 
 
 
@@ -92,70 +92,6 @@ args = {
         'subtitles_file2' : f'{dirname}_2.srt',
     }
 
-class highlightgraphView(View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(highlightgraphView, self).dispatch(*args, **kwargs)
-
-    def get(self, request):
-        # return render(request, 'highlight/hilight_index.html')
-        return render(request, 'highlight/highlightgraph_index.html')
-
-
-    def post(self, request):
-        #video save
-        print('highlightgraph key',request.POST.keys())
-        highlightgraph_start = request.POST.get('start', '0')
-        highlightgraph_end =request.POST.get('end', '1')
-    
-
-        print('시간 확인',highlightgraph_start,highlightgraph_end)
-        highlightgraph_time = int(float(highlightgraph_end)-float(highlightgraph_start))
-
-        highlightgraphstart = int(float(highlightgraph_start))
-        # analysisstarttime = str(datetime.timedelta(seconds=analysisstart))
-        highlightgraphend = int(float(highlightgraph_start))
-        # analysisendtime = str(datetime.timedelta(seconds=analysisend))
-        # print('시간 ', analysisstarttime, analysisendtime)
-
-
-        # #  search highlgith 
-        # if args['flag'] =='test':
-        #     highlight_rate = [random.random() for i in range(int(analysis_time))]
-        #     d_data = [random.random() for i in range(int(analysis_time))]
-        #     k_data = [random.random() for i in range(int(analysis_time))]
-        #     a_data = [random.random() for i in range(int(analysis_time))]
-        # else: 
-        #     ddf = preprocessing.main(args, analysisstarttime, analysisendtime)
-        #     # result = modelpredict.modelpre( args, ddf)
-        #     # rate_list = result['probability'].tolist()
-        #     # highlight_rate = [0]*(20+int(float(analysis_start))) + rate_list
-        #     # all, k_data, d_data, a_data = usingdata.delta(args, ddf)
-        #     # k_data = k_data.tolist()
-        #     # d_data = d_data.tolist()
-        #     # a_data = a_data.tolist()
-        #     highlight_rate, k_data, d_data, a_data = output.output(args, ddf)
-
-
-        # color = ['rgba(75, 192, 192, 1)' for i in range (len(highlight_rate))]
-
-
-        # time_data2 = []
-        # print(analysis_start, analysis_end)
-        # for i in range(int(analysis_start), int(float(analysis_end))):
-        #     time_data2.append(i)
-
-        # context = {'time_data2': time_data2,
-        #             'highlight_rate': highlight_rate,
-        #             'k_data': k_data,
-        #             'a_data': a_data,
-        #             'd_data': d_data,
-        #             'color': color}
-        print('highlightgraphstart',highlightgraphstart)
-        context = {'time_start': highlightgraphstart,
-                  'time_end':  highlightgraphend}
-        return render(request, 'highlight/highlightgraph_index.html',context)
-
 
 @csrf_exempt
 def analysis(request):
@@ -193,9 +129,6 @@ def analysis(request):
         # d_data = d_data.tolist()
         # a_data = a_data.tolist()
         highlight_rate, k_data, d_data, a_data = output.output(args, ddf)
-        print('highlight data', len(highlight_rate))
-
-    
 
 
     color = ['rgba(75, 192, 192, 1)' for i in range (len(highlight_rate))]
@@ -302,7 +235,7 @@ def savevideo(request):
 @csrf_exempt
 def startSearch(request):
     global filename, data_path, pluscount
-    print('startSearchkey',request.POST.keys())
+    print('key',request.POST.keys())
 
     search_start = request.POST.get('search_start', '')
     search_end =request.POST.get('search_end', '')
@@ -325,11 +258,7 @@ def startSearch(request):
     else:
         df = isgame_test.startgame(args)
         print('len', len(df))
-        # search_list = df.tolist()
-        search_list = df
-
-    # print('search_list', search_list)
-
+        search_list = df[0].tolist()
         
     def lenresize(search_list, window_size):
         res = []
@@ -346,7 +275,6 @@ def startSearch(request):
         return res
         
     search_list = lenresize(search_list, 60)
-    print('isgame_list :', len(search_list))
         
 
     color = ['rgba(75, 192, 192, 1)' for i in range (len(search_list))]
@@ -457,18 +385,11 @@ class makesubtitleView(View):
         if args['flag'] =='test':
             return render(request, 'highlight/last.html')
         else: 
-
-            outfilename = args['video_root'] + args['final_filename']
-            if os.path.isfile(outfilename):
+            make_result = makeVideo.saveSrt(args,time_dict,text_dict)
+            print('make', make_result)
+            final_result =makeVideo.mergeVideo(args)
+            if final_result:
                 return render(request, 'highlight/last.html')
-            else:
-
-
-                make_result = makeVideo.saveSrt(args,time_dict,text_dict)
-                print('make', make_result)
-                final_result =makeVideo.mergeVideo(args)
-                if final_result:
-                    return render(request, 'highlight/last.html')
 
 
     
